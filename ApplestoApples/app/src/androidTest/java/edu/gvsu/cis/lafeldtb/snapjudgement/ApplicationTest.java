@@ -1,4 +1,4 @@
-package edu.gvsu.cis.lafeldtb.applestoapples;
+package edu.gvsu.cis.lafeldtb.snapjudgement;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

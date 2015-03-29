@@ -1,4 +1,4 @@
-package edu.gvsu.cis.lafeldtb.applestoapples;
+package edu.gvsu.cis.lafeldtb.snapjudgement;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
