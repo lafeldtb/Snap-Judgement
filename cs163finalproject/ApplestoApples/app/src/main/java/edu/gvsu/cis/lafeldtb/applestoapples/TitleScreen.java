@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 
@@ -20,6 +21,9 @@ public class TitleScreen extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title_screen);
 
+        //removes the header from the app screens... hopefully -AB
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         playButton = (Button)findViewById(R.id.playButton);
         settingsButton = (Button)findViewById(R.id.settingsButton);
 
@@ -28,6 +32,14 @@ public class TitleScreen extends ActionBarActivity {
             public void onClick(View v) {
                 Intent play = new Intent(TitleScreen.this, PlayerSelect.class);
                 startActivity(play);
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settings = new Intent(TitleScreen.this, Settings.class);
+                startActivity(settings);
             }
         });
 
@@ -57,4 +69,6 @@ public class TitleScreen extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

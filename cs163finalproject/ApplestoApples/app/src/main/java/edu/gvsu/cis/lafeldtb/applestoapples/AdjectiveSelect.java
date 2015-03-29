@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 import org.apache.http.HttpResponse;
@@ -31,6 +32,9 @@ public class AdjectiveSelect extends ActionBarActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adjective_select);
+
+        //removes the header from the app screens... hopefully -AB
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         btn1 = (Button) findViewById(R.id.adjective1);
         btn2 = (Button) findViewById(R.id.adjective2);
