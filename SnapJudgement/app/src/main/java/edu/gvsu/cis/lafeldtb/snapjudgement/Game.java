@@ -1,46 +1,45 @@
-package edu.gvsu.cis.lafeldtb.applestoapples;
+package edu.gvsu.cis.lafeldtb.snapjudgement;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import edu.gvsu.cis.lafeldtb.snapjudgement.Player;
 
 /**
  * Started by Josh Techentin on 3/28/2015.
  */
 public class Game {
 
-    private int numberOfPlayers, currentJudge, numberOfTurns;
-    private ArrayList<Player> players;
+    public int numberOfTurns, currentTurn;
+    public ArrayList<Player> players;
 
-    public Game(int numPlayers, int turns) {
-        numberOfPlayers = numPlayers;
+    public Game(int turns) {
         numberOfTurns = turns;
-        for (int i = 0; i < numberOfPlayers; i++)
-        {
-            Player p = new Player(i);
-            players.add(p);
+        currentTurn = 1;
+        players = new ArrayList<Player>();
+    }
+
+    public void addPlayer(Player p) {
+        players.add(p);
+    }
+
+    public void nextJudge() {
+        if (players.get(players.size() - 1).isJudge) {
+            players.get(players.size() - 1).isJudge = false;
+            players.get(0).isJudge = true;
+            currentTurn++;
         }
-        Random r = new Random();
-        currentJudge = r.nextInt(numberOfPlayers);
-    }
-
-    public void advanceNextTurn() {
-        if (currentJudge == players.size() - 1)
-            currentJudge = 0;
-        else
-            currentJudge++;
-    }
-
-    public void awardPoints(int player) {
-        players.get(player).score += 10;
-    }
-
-    public class Player {
-
-        public int score, ID;
-
-        public Player(int id) {
-            score = 0;
-            ID = id;
+        else {
+            for (int i = 0; i < players.size(); i++) {
+                if (players.get(i).isJudge) {
+                    players.get(i).isJudge = false;
+                    players.get(i + 1).isJudge = true;
+                }
+            }
         }
+    }
+
+    public boolean gameEnded() {
+        return currentTurn >= numberOfTurns;
     }
 }

@@ -45,6 +45,14 @@
             android:name=".ParticipantTurn"
             android:label="@string/title_activity_participant_turn" >
         </activity>
+        <activity
+            android:name=".GameTypeSelect"
+            android:label="@string/title_activity_game_type_select" >
+        </activity>
+        <activity
+            android:name=".OfflinePlayerSelect"
+            android:label="@string/title_activity_offline_player_select" >
+        </activity>
     </application>
 
 </manifest>

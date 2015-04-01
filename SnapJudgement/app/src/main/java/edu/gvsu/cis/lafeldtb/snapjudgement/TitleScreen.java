@@ -20,13 +20,13 @@ public class TitleScreen extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title_screen);
 
-        playButton = (Button)findViewById(R.id.playButton);
+        playButton = (Button)findViewById(R.id.newOnline);
         settingsButton = (Button)findViewById(R.id.settingsButton);
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent play = new Intent(TitleScreen.this, PlayerSelect.class);
+                Intent play = new Intent(TitleScreen.this, GameTypeSelect.class);
                 startActivity(play);
             }
         });
