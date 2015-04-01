@@ -25,6 +25,7 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // This method creates the RecyclerView and instantiates the newPlayer button
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_player_select);
 
@@ -67,6 +68,17 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
+        /* This method checks to see if the user wants to add a new player or start the game
+
+        If the user adds a new player, then AddPlayer will run and add an EditText to the
+        RecyclerView, allowing the user to input a name for the player.
+
+        When three players are created, then the user will be able to push the start game button
+
+        If the user pushes the button newGame, then start a new game
+
+        If there are less than three players, then the start game button will not work
+         */
         if (view == newPlayer) {
             task.execute();
             if (players.size() == 3) {
@@ -81,6 +93,10 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     }
 
     public class AddPlayer extends AsyncTask<Void, Void, Void> {
+
+        /* Only used to update MyWordAdapter, which adds a new EditText to the RecyclerView
+        The RecyclerView keeps track of EditTexts, each one will represent a player's name
+         */
 
         @Override
         protected Void doInBackground(Void... params) {
