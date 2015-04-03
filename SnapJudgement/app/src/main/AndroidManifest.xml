@@ -53,6 +53,10 @@
             android:name=".OfflinePlayerSelect"
             android:label="@string/title_activity_offline_player_select" >
         </activity>
+        <activity
+            android:name=".SelectGame"
+            android:label="@string/title_activity_select_game" >
+        </activity>
     </application>
 
 </manifest>

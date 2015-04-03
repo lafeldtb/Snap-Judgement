@@ -1,36 +1,29 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
+import java.util.ArrayList;
 
-public class TitleScreen extends ActionBarActivity implements View.OnClickListener {
+import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
-    private Button playButton, continueButton;
+public class SelectGame extends ActionBarActivity {
 
+    private ArrayList<Game> currentGames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_title_screen);
-
-        playButton = (Button)findViewById(R.id.newButton);
-        continueButton = (Button) findViewById(R.id.continueButton);
-
-        playButton.setOnClickListener(this);
-        continueButton.setOnClickListener(this);
+        setContentView(R.layout.activity_select_game);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_title_screen, menu);
+        getMenuInflater().inflate(R.menu.menu_select_game, menu);
         return true;
     }
 
@@ -47,17 +40,5 @@ public class TitleScreen extends ActionBarActivity implements View.OnClickListen
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view == playButton) {
-            Intent play = new Intent(TitleScreen.this, OfflinePlayerSelect.class);
-            startActivity(play);
-        }
-        else if (view == continueButton) {
-            Intent play = new Intent(TitleScreen.this, SelectGame.class);
-            startActivity(play);
-        }
     }
 }

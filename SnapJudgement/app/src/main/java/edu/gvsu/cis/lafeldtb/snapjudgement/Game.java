@@ -1,5 +1,6 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,14 +9,16 @@ import edu.gvsu.cis.lafeldtb.snapjudgement.Player;
 /**
  * Started by Josh Techentin on 3/28/2015.
  */
-public class Game {
+public class Game implements Serializable {
 
     public int numberOfTurns, currentTurn;
+    public String name;
     public ArrayList<Player> players;
 
-    public Game(int turns) {
+    public Game(int turns, String n) {
         numberOfTurns = turns;
         currentTurn = 1;
+        name = n;
         players = new ArrayList<Player>();
     }
 
@@ -41,5 +44,15 @@ public class Game {
 
     public boolean gameEnded() {
         return currentTurn >= numberOfTurns;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuffer(" Turns : ")
+                .append(this.numberOfTurns)
+                .append(" Current Turn : ")
+                .append(this.currentTurn)
+                .append(" Players : ")
+                .append(this.players).toString();
     }
 }

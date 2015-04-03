@@ -1,18 +1,38 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+
+import java.util.ArrayList;
 
 import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
-public class JudgeTurn extends ActionBarActivity {
+public class JudgeTurn extends ActionBarActivity implements View.OnClickListener {
+
+    private Button next, prev, select;
+    private ImageView image;
+    private ArrayList<Drawable> photos;
+    private int currentPhoto = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_judge_turn);
+
+        next = (Button) findViewById(R.id.next);
+        prev = (Button) findViewById(R.id.prev);
+        select = (Button) findViewById(R.id.choose);
+        image = (ImageView) findViewById(R.id.currentImage);
+
+        next.setOnClickListener(this);
+        prev.setOnClickListener(this);
+        select.setOnClickListener(this);
     }
 
 
@@ -36,5 +56,21 @@ public class JudgeTurn extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == next) {
+            if (currentPhoto == photos.size() - 1)
+                currentPhoto = 0;
+            else
+                currentPhoto++;
+        }
+        else if (view == prev) {
+            if (currentPhoto == 0)
+                currentPhoto = photos.size() - 1;
+            else
+                currentPhoto--;
+        }
     }
 }
