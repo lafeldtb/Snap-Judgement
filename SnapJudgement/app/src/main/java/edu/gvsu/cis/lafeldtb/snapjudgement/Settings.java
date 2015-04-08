@@ -7,28 +7,32 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
+import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
-public class TitleScreen extends ActionBarActivity implements View.OnClickListener {
+public class Settings extends ActionBarActivity implements View.OnClickListener {
 
-    private Button playButton;
-
+    private Button accept;
+    private EditText turns, players;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_title_screen);
+        setContentView(R.layout.activity_settings);
 
-        playButton = (Button)findViewById(R.id.newButton);
+        accept = (Button) findViewById(R.id.acceptChangesButton);
+        turns = (EditText) findViewById(R.id.turnNumber);
+        players = (EditText) findViewById(R.id.playerNumber);
 
-        playButton.setOnClickListener(this);
+        accept.setOnClickListener(this);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_title_screen, menu);
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
     }
 
@@ -49,8 +53,12 @@ public class TitleScreen extends ActionBarActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        if (view == playButton) {
-            Intent play = new Intent(TitleScreen.this, Settings.class);
+        if (view == accept) {
+            Intent play = new Intent(Settings.this, OfflinePlayerSelect.class);
+            int numTurns = Integer.parseInt(turns.getText().toString());
+            int numPlayers = Integer.parseInt(players.getText().toString());
+            play.putExtra("turns", numTurns);
+            play.putExtra("players", numPlayers);
             startActivity(play);
         }
     }

@@ -1,5 +1,6 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     private RecyclerView.LayoutManager myManager;
     private ArrayList<String> players;
     private AddPlayer task;
+    private int numTurns, numPlayers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,11 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
         playerList.setAdapter(myAdapter);
 
         task = new AddPlayer();
+
+        Intent what = getIntent();
+
+        numPlayers = what.getIntExtra("players", 3);
+        numTurns = what.getIntExtra("turns", 8);
     }
 
 

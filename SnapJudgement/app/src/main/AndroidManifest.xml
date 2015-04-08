@@ -57,6 +57,14 @@
             android:name=".SelectGame"
             android:label="@string/title_activity_select_game" >
         </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".Victory"
+            android:label="@string/title_activity_victory" >
+        </activity>
     </application>
 
 </manifest>
