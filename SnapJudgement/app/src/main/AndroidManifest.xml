@@ -45,10 +45,7 @@
             android:name=".ParticipantTurn"
             android:label="@string/title_activity_participant_turn" >
         </activity>
-        <activity
-            android:name=".GameTypeSelect"
-            android:label="@string/title_activity_game_type_select" >
-        </activity>
+
         <activity
             android:name=".OfflinePlayerSelect"
             android:label="@string/title_activity_offline_player_select" >
@@ -58,8 +55,18 @@
             android:label="@string/title_activity_select_game" >
         </activity>
         <activity
+
             android:name=".Standings"
             android:label="@string/title_activity_standings" >
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".Victory"
+            android:label="@string/title_activity_victory" >
+
         </activity>
     </application>
 

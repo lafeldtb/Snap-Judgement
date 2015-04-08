@@ -1,51 +1,43 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
 import android.content.Intent;
-import android.media.audiofx.BassBoost;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
-public class TitleScreen extends ActionBarActivity implements View.OnClickListener {
+public class Victory extends ActionBarActivity implements View.OnClickListener {
 
-    private Button playButton, settingsButton;
-
-    //the settings to use with the intents
-    private int scoreLimit;
-
-
-
+    private TextView text;
+    private Button button;
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_title_screen);
+        setContentView(R.layout.activity_victory);
 
-        playButton = (Button)findViewById(R.id.newButton);
-        settingsButton = (Button)findViewById(R.id.settings_button);
-
-
-        playButton.setOnClickListener(this);
-        settingsButton.setOnClickListener(this);
-
-
-        Intent what = getIntent();
-        scoreLimit = what.getIntExtra("scoreLimit", 5);
-
-
-
-
+        Player player = new Player("null");
+        for (Player p: game.players) {
+            if (p.getScore() > player.getScore())
+                player = p;
+        }
+        text = (TextView) findViewById(R.id.victory);
+        text.setText(player.getName() + " wins the match with " + player.getScore() + " points");
+        button = (Button) findViewById(R.id.ok);
+        button.setOnClickListener(this);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_title_screen, menu);
+        getMenuInflater().inflate(R.menu.menu_victory, menu);
         return true;
     }
 
@@ -66,16 +58,9 @@ public class TitleScreen extends ActionBarActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        if (view == playButton) {
-
-            Intent play = new Intent(TitleScreen.this, OfflinePlayerSelect.class);
-            play.putExtra("ScoreLimit", scoreLimit);
+        if (view == button) {
+            Intent play = new Intent(Victory.this, TitleScreen.class);
             startActivity(play);
-
-        } else if (view == settingsButton) {
-            
-            Intent settings = new Intent(TitleScreen.this, Settings.class);
-            startActivity(settings);
         }
     }
 }

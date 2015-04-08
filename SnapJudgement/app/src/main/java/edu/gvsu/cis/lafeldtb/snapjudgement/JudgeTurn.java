@@ -1,5 +1,6 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,27 +9,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-
-import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
 public class JudgeTurn extends ActionBarActivity implements View.OnClickListener {
 
     private Button next, prev, select;
     private ImageView image;
+    private TextView text;
     private ArrayList<Drawable> photos;
     private int currentPhoto = 0;
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_judge_turn);
 
-        next = (Button) findViewById(R.id.next);
+        next = (Button) findViewById(R.id.ok);
         prev = (Button) findViewById(R.id.prev);
         select = (Button) findViewById(R.id.choose);
         image = (ImageView) findViewById(R.id.currentImage);
+        text = (TextView) findViewById(R.id.winnerText);
 
         next.setOnClickListener(this);
         prev.setOnClickListener(this);
@@ -71,6 +74,44 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
                 currentPhoto = photos.size() - 1;
             else
                 currentPhoto--;
+        }
+        else if (view == select) {
+            int[] values = new int[game.players.size() - 1];
+            int count = 0;
+            boolean isTrue = false;
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    isTrue = true;
+                else if (isTrue) {
+                    values[count] = i;
+                    count++;
+                }
+            }
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    isTrue = false;
+                else if (isTrue) {
+                    values[count] = i;
+                    count++;
+                }
+            }
+            int tempInt = game.players.get(values[currentPhoto]).getScore() + 10;
+            game.players.get(values[currentPhoto]).setScore(tempInt);
+            game.nextJudge();
+            text.setText(game.players.get(values[currentPhoto]).getName() + "wins 10 points");
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            if (game.gameEnded()) {
+                Intent play = new Intent(JudgeTurn.this, Victory.class);
+                startActivity(play);
+            }
+            else {
+                Intent play = new Intent(JudgeTurn.this, ParticipantTurn.class);
+                startActivity(play);
+            }
         }
     }
 }

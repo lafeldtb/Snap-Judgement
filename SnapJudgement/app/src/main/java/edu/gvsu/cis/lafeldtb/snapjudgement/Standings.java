@@ -24,6 +24,7 @@ public class Standings extends ActionBarActivity implements View.OnClickListener
 
     private RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager myManager;
+    private int scoreLimit;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class Standings extends ActionBarActivity implements View.OnClickListener
 
         Intent what = getIntent();
         players = what.getParcelableArrayListExtra("players");
+        scoreLimit = what.getIntExtra("ScoreLimit", 5);
 
 
         myManager = new LinearLayoutManager(this);

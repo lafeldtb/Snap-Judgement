@@ -1,10 +1,14 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+
+import android.content.Intent;
+
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -36,10 +40,19 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     private RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager myManager;
 
+
+
+
+    private int numTurns, numPlayers, scoreLimit;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_player_select);
+
+
+
 
         players = new ArrayList<Player>();
 
@@ -54,11 +67,11 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Create an intent that goes to Judge turn
-                //TODO: make a random player be judge and then cycle from there
+
 
                 Intent toStandings = new Intent(OfflinePlayerSelect.this, Standings.class);
                 toStandings.putParcelableArrayListExtra("players", players);
+                toStandings.putExtra("ScoreLimit", scoreLimit);
                 startActivity(toStandings);
 
             }
@@ -126,15 +139,20 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
             }
         });
 
+
+
+        Intent what = getIntent();
+
+        numPlayers = what.getIntExtra("players", 3);
+        numTurns = what.getIntExtra("turns", 8);
+        scoreLimit = what.getIntExtra("ScoreLimit", 5);
+
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-
         outState.putParcelableArrayList("players", players);
-
     }
 
     @Override
