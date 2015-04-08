@@ -3,6 +3,7 @@ package edu.gvsu.cis.lafeldtb.snapjudgement;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -26,7 +27,7 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
     private Button newPlayer, newGame;
     private ArrayList<Player> players;
-    private ArrayList<String> playerNames;
+
 
     private final int BCOLOR = 0xffdedc00;
     private final int ACOLOR = 0xff9c9c9c;
@@ -37,13 +38,17 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // This method creates the RecyclerView and instantiates the newPlayer button
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offline_player_select);
 
-        newPlayer = (Button) findViewById(R.id.newPlayer);
-        playerNames = new ArrayList<String>();
         players = new ArrayList<Player>();
+
+        if(savedInstanceState != null) {
+            players = savedInstanceState.getParcelableArrayList("players");
+
+        }
+
+        newPlayer = (Button) findViewById(R.id.newPlayer);
         newGame = (Button) findViewById(R.id.newGame);
         playerList = (RecyclerView) findViewById(R.id.listOfPlayers);
         newGame.setOnClickListener(new View.OnClickListener() {
@@ -51,17 +56,18 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
             public void onClick(View v) {
                 //TODO: Create an intent that goes to Judge turn
                 //TODO: make a random player be judge and then cycle from there
+
+                Intent toStandings = new Intent(OfflinePlayerSelect.this, Standings.class);
+                toStandings.putParcelableArrayListExtra("players", players);
+                startActivity(toStandings);
+
             }
         });
 
-
-
-
         myManager = new LinearLayoutManager(this);
         playerList.setLayoutManager(myManager);
-        myAdapter = new MyWordAdapter(playerNames);
+        myAdapter = new MyWordAdapter(players);
         playerList.setAdapter(myAdapter);
-
         newPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +95,7 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
                                 //edit text
                                 //creates a new player
                                 players.add(new Player(userInput.getText().toString()));
-                                playerNames.add(userInput.getText().toString());
+
                                 myAdapter.notifyDataSetChanged();
                                 //lets the button work if there are 3 or more players
                                 if (players.size() >= 3) {
@@ -125,7 +131,10 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //TODO: Create the save instance bundle
+
+
+        outState.putParcelableArrayList("players", players);
+
     }
 
     @Override

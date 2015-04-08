@@ -22,22 +22,11 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="75dp"
-        android:text="NEW GAME"
+        android:text="Play"
         android:id="@+id/newButton"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:background="#ffdedc00"
         android:textSize="25dp" />
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="75dp"
-        android:text="CONTINUE GAME"
-        android:id="@+id/continueButton"
-        android:background="#ffdedc00"
-        android:textSize="25dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/newButton"
-        android:layout_alignStart="@+id/newButton" />
 
 </RelativeLayout>

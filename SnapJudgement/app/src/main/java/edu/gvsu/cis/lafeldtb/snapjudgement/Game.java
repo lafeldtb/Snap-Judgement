@@ -27,16 +27,16 @@ public class Game implements Serializable {
     }
 
     public void nextJudge() {
-        if (players.get(players.size() - 1).isJudge) {
-            players.get(players.size() - 1).isJudge = false;
-            players.get(0).isJudge = true;
+        if (players.get(players.size() - 1).getJudge()) {
+            players.get(players.size() - 1).setJudge(false);
+            players.get(0).setJudge(true);
             currentTurn++;
         }
         else {
             for (int i = 0; i < players.size(); i++) {
-                if (players.get(i).isJudge) {
-                    players.get(i).isJudge = false;
-                    players.get(i + 1).isJudge = true;
+                if (players.get(i).getJudge()) {
+                    players.get(i).setJudge(false);
+                    players.get(i + 1).setJudge(true);
                 }
             }
         }

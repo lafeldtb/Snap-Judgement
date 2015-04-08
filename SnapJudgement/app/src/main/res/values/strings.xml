@@ -11,5 +11,6 @@
     <string name="title_activity_game_type_select">GameTypeSelect</string>
     <string name="title_activity_offline_player_select">OfflinePlayerSelect</string>
     <string name="title_activity_select_game">SelectGame</string>
+    <string name="title_activity_standings">Standings</string>
 
 </resources>

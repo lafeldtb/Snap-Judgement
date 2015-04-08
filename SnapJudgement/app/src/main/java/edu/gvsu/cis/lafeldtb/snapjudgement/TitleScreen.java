@@ -11,7 +11,7 @@ import android.widget.Button;
 
 public class TitleScreen extends ActionBarActivity implements View.OnClickListener {
 
-    private Button playButton, continueButton;
+    private Button playButton;
 
 
     @Override
@@ -20,10 +20,10 @@ public class TitleScreen extends ActionBarActivity implements View.OnClickListen
         setContentView(R.layout.activity_title_screen);
 
         playButton = (Button)findViewById(R.id.newButton);
-        continueButton = (Button) findViewById(R.id.continueButton);
+
 
         playButton.setOnClickListener(this);
-        continueButton.setOnClickListener(this);
+
     }
 
 
@@ -55,9 +55,6 @@ public class TitleScreen extends ActionBarActivity implements View.OnClickListen
             Intent play = new Intent(TitleScreen.this, OfflinePlayerSelect.class);
             startActivity(play);
         }
-        else if (view == continueButton) {
-            Intent play = new Intent(TitleScreen.this, SelectGame.class);
-            startActivity(play);
-        }
+
     }
 }
