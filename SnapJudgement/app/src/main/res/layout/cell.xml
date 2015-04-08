@@ -5,7 +5,7 @@
     android:id="@+id/linear"
     android:background="@android:color/holo_blue_light">
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/myword"

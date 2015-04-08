@@ -41,11 +41,11 @@ public class MyWordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private class MyWordHolder extends RecyclerView.ViewHolder {
 
-        public EditText word;
+        public TextView word;
 
         public MyWordHolder(View itemView) {
             super(itemView);
-            word = (EditText) itemView.findViewById (R.id.myword);
+            word = (TextView) itemView.findViewById (R.id.myword);
         }
     }
 }
