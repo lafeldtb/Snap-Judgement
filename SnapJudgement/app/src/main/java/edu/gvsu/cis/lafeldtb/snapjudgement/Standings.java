@@ -24,21 +24,23 @@ public class Standings extends ActionBarActivity implements View.OnClickListener
 
     private RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager myManager;
-    private int scoreLimit;
+
+    private Game game;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_standings);
 
         playButton = (Button) findViewById(R.id.play_button);
+        playButton.setOnClickListener(this);
         nextJudge = (TextView) findViewById(R.id.next_judge);
         playerList = (RecyclerView) findViewById(R.id.listOfPlayers);
 
-        players = new ArrayList<Player>();
+
 
         Intent what = getIntent();
-        players = what.getParcelableArrayListExtra("players");
-        scoreLimit = what.getIntExtra("ScoreLimit", 5);
+        game = (Game) what.getParcelableExtra("game");
+        players = game.players;
 
 
         myManager = new LinearLayoutManager(this);
@@ -46,8 +48,7 @@ public class Standings extends ActionBarActivity implements View.OnClickListener
         myAdapter = new StandingsAdapter(players);
         playerList.setAdapter(myAdapter);
 
-        //chooseJudge();
-        //TODO: write the choose Judge method to pass on to the Adjective Select
+        nextJudge.setText(game.findJudge().getName());
 
 
 
@@ -55,9 +56,7 @@ public class Standings extends ActionBarActivity implements View.OnClickListener
 
     }
 
-    private String chooseJudge() {
-        return null;
-    }
+
 
 
     @Override
@@ -84,6 +83,12 @@ public class Standings extends ActionBarActivity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        if(v == playButton) {
+            Intent play = new Intent(Standings.this, AdjectiveSelect.class);
+            play.putExtra("game", (android.os.Parcelable) game);
+            startActivity(play);
+
+        }
 
     }
 }

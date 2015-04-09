@@ -40,10 +40,12 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     private RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager myManager;
 
+    private Game game;
 
 
 
-    private int numTurns, numPlayers, scoreLimit;
+
+    private int  scoreLimit;
 
 
     @Override
@@ -64,14 +66,20 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
         newPlayer = (Button) findViewById(R.id.newPlayer);
         newGame = (Button) findViewById(R.id.newGame);
         playerList = (RecyclerView) findViewById(R.id.listOfPlayers);
+
+        Intent what = getIntent();
+        scoreLimit = what.getIntExtra("ScoreLimit", 5);
+        game = new Game(players, scoreLimit);
+
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
                 Intent toStandings = new Intent(OfflinePlayerSelect.this, Standings.class);
-                toStandings.putParcelableArrayListExtra("players", players);
-                toStandings.putExtra("ScoreLimit", scoreLimit);
+
+
+                toStandings.putExtra("game", game);
                 startActivity(toStandings);
 
             }
@@ -141,11 +149,8 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
 
 
-        Intent what = getIntent();
 
-        numPlayers = what.getIntExtra("players", 3);
-        numTurns = what.getIntExtra("turns", 8);
-        scoreLimit = what.getIntExtra("ScoreLimit", 5);
+
 
     }
 

@@ -1,6 +1,10 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,17 +13,18 @@ import edu.gvsu.cis.lafeldtb.snapjudgement.Player;
 /**
  * Started by Josh Techentin on 3/28/2015.
  */
-public class Game {
+public class Game implements Parcelable{
 
-    public int numberOfTurns, currentTurn;
-    public String name;
-    public ArrayList<Player> players;
 
-    public Game(int turns, String n) {
-        numberOfTurns = turns;
-        currentTurn = 1;
-        name = n;
-        players = new ArrayList<Player>();
+    public ArrayList<Player> players = new ArrayList<Player>();
+    public int scoreLimit;
+
+    public Game( ArrayList<Player> players, int scoreLimit) {
+
+        this.players = players;
+        this.scoreLimit = scoreLimit;
+
+
     }
 
     public void addPlayer(Player p) {
@@ -30,7 +35,7 @@ public class Game {
         if (players.get(players.size() - 1).getJudge()) {
             players.get(players.size() - 1).setJudge(false);
             players.get(0).setJudge(true);
-            currentTurn++;
+
         }
         else {
             for (int i = 0; i < players.size(); i++) {
@@ -42,7 +47,50 @@ public class Game {
         }
     }
 
+    public Player findJudge() {
+        for(Player p: players) {
+            if(p.getJudge()) return p;
+        }
+        players.get(0).setJudge(true);
+        return players.get(0);
+    }
+
     public boolean gameEnded() {
-        return currentTurn >= numberOfTurns;
+        for(Player p: players) {
+            if(p.getScore() == 10) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(scoreLimit);
+        dest.writeTypedList(players);
+    }
+
+    public static final Parcelable.Creator<Game> CREATOR
+            = new Parcelable.Creator<Game>() {
+        public Game createFromParcel(Parcel in) {
+            return new Game(in);
+        }
+
+        public Game[] newArray(int size) {
+            return new Game[size];
+        }
+    };
+
+    /** recreate object from parcel */
+    private Game(Parcel in) {
+        scoreLimit = in.readInt();
+        in.readTypedList(players, Player.CREATOR);
     }
 }
