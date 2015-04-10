@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class JudgeTurn extends ActionBarActivity implements View.OnClickListener {
 
@@ -19,8 +20,8 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
     private ImageView image;
     private TextView text;
     private ArrayList<Drawable> photos;
+    private ArrayList<HashMap<String, Integer>> players;
     private int currentPhoto = 0;
-    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,8 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
         next.setOnClickListener(this);
         prev.setOnClickListener(this);
         select.setOnClickListener(this);
+
+        Intent what = getIntent();
     }
 
 
@@ -76,41 +79,7 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
                 currentPhoto--;
         }
         else if (view == select) {
-            int[] values = new int[game.players.size() - 1];
-            int count = 0;
-            boolean isTrue = false;
-            for (int i = 0; i < game.players.size(); i++) {
-                if (game.players.get(i).isJudge)
-                    isTrue = true;
-                else if (isTrue) {
-                    values[count] = i;
-                    count++;
-                }
-            }
-            for (int i = 0; i < game.players.size(); i++) {
-                if (game.players.get(i).isJudge)
-                    isTrue = false;
-                else if (isTrue) {
-                    values[count] = i;
-                    count++;
-                }
-            }
-            game.players.get(values[currentPhoto]).score += 10;
-            game.nextJudge();
-            text.setText(game.players.get(values[currentPhoto]).name + "wins 10 points");
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            if (game.gameEnded()) {
-                Intent play = new Intent(JudgeTurn.this, Victory.class);
-                startActivity(play);
-            }
-            else {
-                Intent play = new Intent(JudgeTurn.this, ParticipantTurn.class);
-                startActivity(play);
-            }
+
         }
     }
 }

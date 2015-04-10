@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
@@ -21,8 +22,8 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     private RecyclerView playerList;
     private RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager myManager;
-    private ArrayList<String> players;
-    private AddPlayer task;
+    private ArrayList<String> playerNames;
+    private ArrayList<Integer> scores;
     private int numTurns, numPlayers;
 
     @Override
@@ -39,15 +40,17 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
         myManager = new LinearLayoutManager(this);
         playerList.setLayoutManager(myManager);
 
-        myAdapter = new MyWordAdapter(players);
+        myAdapter = new MyWordAdapter(playerNames);
         playerList.setAdapter(myAdapter);
-
-        task = new AddPlayer();
 
         Intent what = getIntent();
 
         numPlayers = what.getIntExtra("players", 3);
         numTurns = what.getIntExtra("turns", 8);
+
+        for (int i = 0; i < numPlayers; i++) {
+            scores.add(0);
+        }
     }
 
 
@@ -87,32 +90,18 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
         If there are less than three players, then the start game button will not work
          */
         if (view == newPlayer) {
-            task.execute();
-            if (players.size() == 3) {
+            myAdapter.notifyDataSetChanged();
+            if (playerNames.size() == 3) {
                 newGame = (Button) findViewById(R.id.newGame);
                 newGame.setOnClickListener(this);
                 newGame.setText("START NEW GAME");
             }
         }
         else if (view == newGame) {
-
-        }
-    }
-
-    public class AddPlayer extends AsyncTask<Void, Void, Void> {
-
-        /* Only used to update MyWordAdapter, which adds a new EditText to the RecyclerView
-        The RecyclerView keeps track of EditTexts, each one will represent a player's name
-         */
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            myAdapter.notifyDataSetChanged();
+            Intent play = new Intent(OfflinePlayerSelect.this, AdjectiveSelect.class);
+            play.putExtra("players", playerNames);
+            play.putExtra("scores", scores);
+            startActivity(play);
         }
     }
 }

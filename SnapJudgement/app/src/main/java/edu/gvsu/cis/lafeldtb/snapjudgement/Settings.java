@@ -57,8 +57,8 @@ public class Settings extends ActionBarActivity implements View.OnClickListener 
             Intent play = new Intent(Settings.this, OfflinePlayerSelect.class);
             int numTurns = Integer.parseInt(turns.getText().toString());
             int numPlayers = Integer.parseInt(players.getText().toString());
-            play.putExtra("turns", numTurns);
             play.putExtra("players", numPlayers);
+            play.putExtra("turns", numTurns);
             startActivity(play);
         }
     }

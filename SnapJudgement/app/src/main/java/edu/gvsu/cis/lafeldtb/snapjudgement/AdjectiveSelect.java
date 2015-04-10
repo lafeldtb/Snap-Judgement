@@ -1,5 +1,6 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,16 +14,22 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public class AdjectiveSelect extends ActionBarActivity implements View.OnClickListener {
 
-    private final String URL = "http://www.randomlists.com/random-adjectives";
+    private final String URL = "http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=1&minLength=2&maxLength=-1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
     private String adj1 = null, adj2 = null, adj3 = null;
     private Button btn1, btn2, btn3;
+    private ArrayList<Integer> scores;
+    private ArrayList<String> playerNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,10 @@ public class AdjectiveSelect extends ActionBarActivity implements View.OnClickLi
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         btn3.setOnClickListener(this);
+
+        Intent what = getIntent();
+        scores = what.getIntegerArrayListExtra("scores");
+        playerNames = what.getStringArrayListExtra("players");
 
         GetAdjectives myTask = new GetAdjectives();
         while(adj1 == null || adj1.equals(adj2) || adj1.equals(adj3) || adj2.equals(adj3))
@@ -66,7 +77,27 @@ public class AdjectiveSelect extends ActionBarActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        // Will check which button you clicked and will send the current text of the button to the next activity
+        if (view == btn1) {
+            Intent play = new Intent(AdjectiveSelect.this, ParticipantTurn.class);
+            play.putExtra("adjective", btn1.getText().toString());
+            play.putExtra("players", playerNames);
+            play.putExtra("scores", scores);
+            startActivity(play);
+        }
+        else if (view == btn2) {
+            Intent play = new Intent(AdjectiveSelect.this, ParticipantTurn.class);
+            play.putExtra("adjective", btn2.getText().toString());
+            play.putExtra("players", playerNames);
+            play.putExtra("scores", scores);
+            startActivity(play);
+        }
+        else if (view == btn3) {
+            Intent play = new Intent(AdjectiveSelect.this, ParticipantTurn.class);
+            play.putExtra("adjective", btn3.getText().toString());
+            play.putExtra("players", playerNames);
+            play.putExtra("scores", scores);
+            startActivity(play);
+        }
     }
 
     private class GetAdjectives extends AsyncTask<Void, Void, String>
@@ -76,14 +107,10 @@ public class AdjectiveSelect extends ActionBarActivity implements View.OnClickLi
         @Override
         protected String doInBackground(Void... params) {
             HttpClient client = new DefaultHttpClient();
-/* set up the URL for the GET request */
-            HttpGet hget = new HttpGet(URL); /* params is the variable-args of
-                                                doInBackground */
+            HttpGet hget = new HttpGet(URL);
             try {
-  /* send the request to rhymebrain server, and get its response */
                 HttpResponse resp = client.execute(hget);
 
-  /* use an input stream to read the text response */
                 InputStream stream = resp.getEntity().getContent();
                 char[] buffer = new char[1024];
 
@@ -91,16 +118,13 @@ public class AdjectiveSelect extends ActionBarActivity implements View.OnClickLi
                 int len;
 
                 StringBuffer sb = new StringBuffer();
-  /* read 1K chunk at a time and append it to a StringBuffer */
                 len = reader.read(buffer, 0, 1024);
 
-  /* "len" tells us how many bytes are actually read */
-                while (len != -1) { /* len is -1 when no more data to read */
+                while (len != -1) {
                     sb.append(buffer, 0, len);
-                    len = reader.read(buffer, 0, 1024); /* read the next chunk */
+                    len = reader.read(buffer, 0, 1024);
                 }
-                String result = sb.toString();
-                return result; /* pass the entire buffer to onPostExecute */
+                return sb.toString();
             }
             catch (IOException e) {
                 Log.e("OOPS", "There was an error " + e.getMessage());
@@ -110,12 +134,24 @@ public class AdjectiveSelect extends ActionBarActivity implements View.OnClickLi
 
         @Override
         protected void onPostExecute(String s) {
+            JSONObject obj = null;
+            try {
+                obj = new JSONObject(s);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            String name = null;
+            try {
+                name = obj.getString("word");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (adj1 == null)
-                adj1 = s;
+                adj1 = name;
             else if (adj2 == null || adj2.equals(adj1))
-                adj2 = s;
+                adj2 = name;
             else if (adj3 == null || adj3.equals(adj1) || adj3.equals(adj2))
-                adj3 = s;
+                adj3 = name;
         }
     }
 }
