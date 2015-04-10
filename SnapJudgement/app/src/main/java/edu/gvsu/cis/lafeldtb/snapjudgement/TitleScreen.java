@@ -1,6 +1,7 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
 import android.content.Intent;
+import android.media.audiofx.BassBoost;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,7 +12,12 @@ import android.widget.Button;
 
 public class TitleScreen extends ActionBarActivity implements View.OnClickListener {
 
-    private Button playButton;
+    private Button playButton, settingsButton;
+
+    //the settings to use with the intents
+    private int scoreLimit;
+
+
 
 
     @Override
@@ -20,8 +26,19 @@ public class TitleScreen extends ActionBarActivity implements View.OnClickListen
         setContentView(R.layout.activity_title_screen);
 
         playButton = (Button)findViewById(R.id.newButton);
+        settingsButton = (Button)findViewById(R.id.settings_button);
+
 
         playButton.setOnClickListener(this);
+        settingsButton.setOnClickListener(this);
+
+
+        Intent what = getIntent();
+        scoreLimit = what.getIntExtra("scoreLimit", 5);
+
+
+
+
     }
 
 
@@ -50,8 +67,15 @@ public class TitleScreen extends ActionBarActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if (view == playButton) {
-            Intent play = new Intent(TitleScreen.this, Settings.class);
+
+            Intent play = new Intent(TitleScreen.this, OfflinePlayerSelect.class);
+            play.putExtra("ScoreLimit", scoreLimit);
             startActivity(play);
+
+        } else if (view == settingsButton) {
+            
+            Intent settings = new Intent(TitleScreen.this, Settings.class);
+            startActivity(settings);
         }
     }
 }

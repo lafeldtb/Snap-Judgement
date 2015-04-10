@@ -79,7 +79,49 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
                 currentPhoto--;
         }
         else if (view == select) {
+<<<<<<< HEAD
 
+=======
+            int[] values = new int[game.players.size() - 1];
+            int count = 0;
+            boolean isTrue = false;
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    isTrue = true;
+                else if (isTrue) {
+                    values[count] = i;
+                    count++;
+                }
+            }
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    isTrue = false;
+                else if (isTrue) {
+                    values[count] = i;
+                    count++;
+                }
+            }
+            //updates winner's score
+            int tempInt = game.players.get(values[currentPhoto]).getScore() + 1;
+            game.players.get(values[currentPhoto]).setScore(tempInt);
+            //sets the next judge
+            game.nextJudge();
+            text.setText(game.players.get(values[currentPhoto]).getName() + " wins 1 point");
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            if (game.gameEnded()) {
+                Intent play = new Intent(JudgeTurn.this, Victory.class);
+                startActivity(play);
+            }
+            else {
+                Intent play = new Intent(JudgeTurn.this, Standings.class);
+                play.putExtra("game", (android.os.Parcelable) game);
+                startActivity(play);
+            }
+>>>>>>> f52adad0de4a6c17e44d03b6d1502e743cfd3f55
         }
     }
 }

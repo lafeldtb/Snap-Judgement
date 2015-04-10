@@ -14,7 +14,7 @@ import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 public class Settings extends ActionBarActivity implements View.OnClickListener {
 
     private Button accept;
-    private EditText turns, players;
+    private EditText scoreLimit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +22,8 @@ public class Settings extends ActionBarActivity implements View.OnClickListener 
         setContentView(R.layout.activity_settings);
 
         accept = (Button) findViewById(R.id.acceptChangesButton);
-        turns = (EditText) findViewById(R.id.turnNumber);
-        players = (EditText) findViewById(R.id.playerNumber);
+        scoreLimit = (EditText) findViewById(R.id.score_limit);
+
 
         accept.setOnClickListener(this);
     }
@@ -54,11 +54,19 @@ public class Settings extends ActionBarActivity implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         if (view == accept) {
+<<<<<<< HEAD
             Intent play = new Intent(Settings.this, OfflinePlayerSelect.class);
             int numTurns = Integer.parseInt(turns.getText().toString());
             int numPlayers = Integer.parseInt(players.getText().toString());
             play.putExtra("players", numPlayers);
             play.putExtra("turns", numTurns);
+=======
+            Intent play = new Intent(Settings.this, TitleScreen.class);
+            int scoreLim = Integer.parseInt(scoreLimit.getText().toString());
+
+            play.putExtra("scoreLimit", scoreLim);
+
+>>>>>>> f52adad0de4a6c17e44d03b6d1502e743cfd3f55
             startActivity(play);
         }
     }

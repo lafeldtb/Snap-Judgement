@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="edu.gvsu.cis.lafeldtb.snapjudgement.Standings">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listOfPlayers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_below="@+id/standings_label"
+        android:layout_alignParentBottom="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Standings"
+        android:id="@+id/standings_label"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Judge:"
+        android:id="@+id/next_judge_label"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="TEST"
+        android:id="@+id/next_judge"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="79dp"
+        android:textSize="45dp"
+        android:gravity="center_horizontal" />
+
+    <Space
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/next_judge_label"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/judge_label_buffer" />
+
+    <Space
+        android:layout_width="fill_parent"
+        android:layout_height="25dp"
+        android:layout_below="@+id/next_judge"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/play_button_buffer" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PLAY"
+        android:id="@+id/play_button"
+        android:layout_below="@+id/play_button_buffer"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/standings_label"
+        android:textSize="30dp" />
+
+</RelativeLayout>

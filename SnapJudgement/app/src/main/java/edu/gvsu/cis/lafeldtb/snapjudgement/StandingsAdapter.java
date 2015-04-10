@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -12,11 +11,11 @@ import java.util.ArrayList;
 /**
  * Started by Josh Techentin on 3/31/2015.
  */
-public class MyWordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class StandingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<Player> data;
 
-    public MyWordAdapter(ArrayList<Player> s) {
+    public StandingsAdapter(ArrayList<Player> s) {
         data = s;
     }
 
@@ -31,7 +30,7 @@ public class MyWordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
         MyWordHolder tmp = (MyWordHolder) viewHolder;
-        tmp.word.setText (data.get(i).getName());
+        tmp.word.setText (data.get(i).getName() + ":\t" + data.get(i).getScore());
     }
 
     @Override
