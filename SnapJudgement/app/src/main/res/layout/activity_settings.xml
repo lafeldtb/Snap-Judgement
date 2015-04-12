@@ -10,7 +10,7 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="75dp"
-        android:text="ACCEPT CHANGES"
+        android:text="ACCEPT"
         android:id="@+id/acceptChangesButton"
         android:background="#ffdedc00"
         android:textSize="25dp"

@@ -40,20 +40,12 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     RecyclerView playerList;
     private RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager myManager;
-<<<<<<< HEAD
-    private ArrayList<String> playerNames;
-    private ArrayList<Integer> scores;
-    private int numTurns, numPlayers;
-=======
+
 
     private Game game;
-
-
-
-
     private int  scoreLimit;
 
->>>>>>> f52adad0de4a6c17e44d03b6d1502e743cfd3f55
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +76,6 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
 
                 Intent toStandings = new Intent(OfflinePlayerSelect.this, Standings.class);
-
-
                 toStandings.putExtra("game", game);
                 startActivity(toStandings);
 
@@ -94,12 +84,9 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
         myManager = new LinearLayoutManager(this);
         playerList.setLayoutManager(myManager);
-<<<<<<< HEAD
 
-        myAdapter = new MyWordAdapter(playerNames);
-=======
         myAdapter = new MyWordAdapter(players);
->>>>>>> f52adad0de4a6c17e44d03b6d1502e743cfd3f55
+
         playerList.setAdapter(myAdapter);
         newPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,19 +149,7 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
 
 
-<<<<<<< HEAD
-        Intent what = getIntent();
 
-        numPlayers = what.getIntExtra("players", 3);
-        numTurns = what.getIntExtra("turns", 8);
-
-        for (int i = 0; i < numPlayers; i++) {
-            scores.add(0);
-        }
-=======
-
-
->>>>>>> f52adad0de4a6c17e44d03b6d1502e743cfd3f55
     }
 
     @Override
@@ -218,23 +193,7 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
         If there are less than three players, then the start game button will not work
          */
-<<<<<<< HEAD
-        if (view == newPlayer) {
-            myAdapter.notifyDataSetChanged();
-            if (playerNames.size() == 3) {
-                newGame = (Button) findViewById(R.id.newGame);
-                newGame.setOnClickListener(this);
-                newGame.setText("START NEW GAME");
-            }
-        }
-        else if (view == newGame) {
-            Intent play = new Intent(OfflinePlayerSelect.this, AdjectiveSelect.class);
-            play.putExtra("players", playerNames);
-            play.putExtra("scores", scores);
-            startActivity(play);
-        }
-    }
-=======
+
 
 
 
@@ -243,5 +202,5 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
 
 
->>>>>>> f52adad0de4a6c17e44d03b6d1502e743cfd3f55
+
 }

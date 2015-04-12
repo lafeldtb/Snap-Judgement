@@ -85,7 +85,7 @@ public class Standings extends ActionBarActivity implements View.OnClickListener
     public void onClick(View v) {
         if(v == playButton) {
             Intent play = new Intent(Standings.this, AdjectiveSelect.class);
-            play.putExtra("game", (android.os.Parcelable) game);
+            play.putExtra("game", game);
             startActivity(play);
 
         }

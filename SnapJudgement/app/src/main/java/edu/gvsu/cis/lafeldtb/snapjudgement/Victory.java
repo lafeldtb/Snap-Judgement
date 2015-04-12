@@ -15,14 +15,14 @@ public class Victory extends ActionBarActivity implements View.OnClickListener {
 
     private TextView text;
     private Button button;
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_victory);
-<<<<<<< HEAD
-        text = (TextView) findViewById(R.id.victory);
-=======
+
+
 
         Player player = new Player("null");
         for (Player p: game.players) {
@@ -33,7 +33,7 @@ public class Victory extends ActionBarActivity implements View.OnClickListener {
         text.setText(player.getName() + " wins the match with " + player.getScore() + " points");
         button = (Button) findViewById(R.id.ok);
         button.setOnClickListener(this);
->>>>>>> f52adad0de4a6c17e44d03b6d1502e743cfd3f55
+
     }
 
 

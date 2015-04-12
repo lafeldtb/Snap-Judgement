@@ -22,6 +22,7 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
     private ArrayList<Drawable> photos;
     private ArrayList<HashMap<String, Integer>> players;
     private int currentPhoto = 0;
+    private Game game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
         select.setOnClickListener(this);
 
         Intent what = getIntent();
+        game = what.getParcelableExtra("game");
     }
 
 
@@ -79,9 +81,7 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
                 currentPhoto--;
         }
         else if (view == select) {
-<<<<<<< HEAD
 
-=======
             int[] values = new int[game.players.size() - 1];
             int count = 0;
             boolean isTrue = false;
@@ -118,10 +118,10 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
             }
             else {
                 Intent play = new Intent(JudgeTurn.this, Standings.class);
-                play.putExtra("game", (android.os.Parcelable) game);
+                play.putExtra("game", game);
                 startActivity(play);
             }
->>>>>>> f52adad0de4a6c17e44d03b6d1502e743cfd3f55
+
         }
     }
 }
