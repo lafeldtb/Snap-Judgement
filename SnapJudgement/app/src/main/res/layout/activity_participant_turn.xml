@@ -30,4 +30,17 @@
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/imageView"
         android:layout_alignEnd="@+id/imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player&apos;s Turn"
+        android:id="@+id/playersTurnText"
+        android:layout_alignBottom="@+id/capture_button"
+        android:layout_toRightOf="@+id/capture_button"
+        android:layout_toLeftOf="@+id/accept_button"
+        android:layout_toStartOf="@+id/accept_button"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:textSize="20dp" />
 </RelativeLayout>

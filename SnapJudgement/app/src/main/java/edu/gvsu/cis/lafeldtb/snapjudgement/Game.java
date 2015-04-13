@@ -17,7 +17,7 @@ public class Game implements Parcelable{
 
 
     public ArrayList<Player> players = new ArrayList<Player>();
-    public int scoreLimit;
+    public int scoreLimit, round = 1;
 
     public Game( ArrayList<Player> players, int scoreLimit) {
 
