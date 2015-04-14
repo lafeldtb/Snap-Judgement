@@ -13,7 +13,7 @@ import java.util.Calendar;
 import edu.gvsu.cis.lafeldtb.snapjudgement.Player;
 
 /**
- * Started by Josh Techentin on 3/28/2015.
+ * @author Benjamin LaFeldt, Joshua Techentin, Andrew Burns
  */
 public class Game implements Parcelable {
 

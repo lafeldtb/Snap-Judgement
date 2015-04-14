@@ -11,6 +11,11 @@ import android.widget.TextView;
 
 import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
+
+/**
+ * @author Benjamin LaFeldt, Joshua Techentin, Andrew Burns
+ */
+
 public class Victory extends ActionBarActivity implements View.OnClickListener {
 
     private TextView text;

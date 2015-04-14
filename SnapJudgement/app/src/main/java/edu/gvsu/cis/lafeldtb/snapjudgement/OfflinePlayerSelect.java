@@ -29,6 +29,10 @@ import java.util.HashMap;
 
 import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
+/**
+ * @author Benjamin LaFeldt, Joshua Techentin, Andrew Burns
+ */
+
 public class OfflinePlayerSelect extends ActionBarActivity implements View.OnClickListener {
 
     private Button newPlayer, newGame;

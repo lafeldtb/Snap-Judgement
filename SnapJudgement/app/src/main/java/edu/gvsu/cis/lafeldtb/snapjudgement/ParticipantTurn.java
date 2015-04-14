@@ -22,6 +22,10 @@ import java.util.ArrayList;
 
 import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
+/**
+ * @author Benjamin LaFeldt, Joshua Techentin, Andrew Burns
+ */
+
 public class ParticipantTurn extends ActionBarActivity implements View.OnClickListener {
 
     private Button captureButton, acceptButton;
