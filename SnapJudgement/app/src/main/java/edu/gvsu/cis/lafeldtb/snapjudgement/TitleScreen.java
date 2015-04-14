@@ -14,12 +14,6 @@ public class TitleScreen extends ActionBarActivity implements View.OnClickListen
 
     private Button playButton;
 
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

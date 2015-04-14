@@ -51,7 +51,6 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
                     File imgDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
                     Drawable imgDrwbl = Drawable.createFromPath(imgDir.getAbsolutePath() + ("/" + currentRound.toString() + "-" + currentPlayer.toString() + ".jpg"));
                     image.setImageDrawable(imgDrwbl);
-
                 }
             }
         }

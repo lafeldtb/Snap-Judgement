@@ -26,9 +26,6 @@
         <meta-data
             android:name="com.google.android.gms.games.APP_ID"
             android:value="@string/app_id" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".JudgeTurn"
@@ -45,10 +42,6 @@
         <activity
             android:name=".OfflinePlayerSelect"
             android:label="@string/title_activity_offline_player_select" >
-        </activity>
-        <activity
-            android:name=".SelectGame"
-            android:label="@string/title_activity_select_game" >
         </activity>
         <activity
             android:name=".Standings"

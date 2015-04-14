@@ -28,7 +28,7 @@ import java.util.Set;
 public class AdjectiveSelect extends ActionBarActivity implements View.OnClickListener {
 
     private final String URL = "http://api.wordnik.com:80/v4/words.json/randomWord?";
-    private final String URL2 = "hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=1&minLength=2&maxLength=-1";
+    private final String URL2 = "hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=1000&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=1&minLength=2&maxLength=-1";
     private final String URL3 = "&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
     private String adj1 = null, adj2 = null, adj3 = null;
     private Button btn1, btn2, btn3;
@@ -210,12 +210,18 @@ public class AdjectiveSelect extends ActionBarActivity implements View.OnClickLi
         protected void onPostExecute(Void v) {
             int count = 0;
             for (String s: words) {
-                if (count == 0)
+                if (count == 0) {
                     btn1.setText(s);
-                else if (count == 1)
+                    adj1 = s;
+                }
+                else if (count == 1) {
                     btn2.setText(s);
-                else if (count == 2)
+                    adj2 = s;
+                }
+                else if (count == 2) {
                     btn3.setText(s);
+                    adj3 = s;
+                }
                 count++;
             }
         }

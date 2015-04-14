@@ -34,7 +34,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/adj"
         android:layout_alignParentTop="true"
-<<<<<<< HEAD:SnapJudgement/app/src/main/res/layout-land/activity_participant_turn.xml
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
         android:textSize="32dp"
