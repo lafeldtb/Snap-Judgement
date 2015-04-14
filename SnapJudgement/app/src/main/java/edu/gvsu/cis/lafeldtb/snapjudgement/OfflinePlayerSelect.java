@@ -122,9 +122,18 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
                                 //get user input and set it to a new student
                                 //edit text
                                 //creates a new player
-                                players.add(new Player(userInput.getText().toString()));
-
-                                myAdapter.notifyDataSetChanged();
+                                boolean used = false;
+                                if(userInput.getText().length() > 0) {
+                                    for(Player p: players) {
+                                        if(userInput.getText().toString().equals(p.getName())) {
+                                           used = true;
+                                        }
+                                    }
+                                    if(!used) {
+                                    players.add(new Player(userInput.getText().toString()));
+                                    myAdapter.notifyDataSetChanged();
+                                    }
+                                }
                                 //lets the button work if there are 3 or more players
                                 if (players.size() >= 3) {
                                     clickable = true;
