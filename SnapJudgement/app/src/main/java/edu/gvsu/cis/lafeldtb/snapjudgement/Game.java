@@ -42,6 +42,7 @@ public class Game implements Parcelable {
         if (players.get(players.size() - 1).getJudge()) {
             players.get(players.size() - 1).setJudge(false);
             players.get(0).setJudge(true);
+            currentRound++;
         }
         else {
             for (int i = 0; i < players.size(); i++) {

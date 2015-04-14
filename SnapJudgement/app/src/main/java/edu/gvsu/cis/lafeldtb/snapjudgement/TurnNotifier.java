@@ -24,7 +24,7 @@ public class TurnNotifier extends ActionBarActivity implements View.OnClickListe
     private TextView name;
     private Button button;
     private Player person;
-    private int ID;
+    private int ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -32,7 +32,7 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
     //Button shareButton;
     static int PHOTO_REQUEST = 1;
     ImageView image;
-    Integer currentPlayer = 0, currentRound = 0;
+    Integer currentPlayer = 0;
     private TextView text;
     private Game game;
     private Player person;
@@ -54,7 +54,8 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
 
                     //For some reason, the code cannot find the file even though it should be able to. It just gets set as null.
                     File imgDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                    Drawable imgDrwbl = Drawable.createFromPath(imgDir.getAbsolutePath() + (game.fingerprint + "-" + currentRound.toString() + "-" + currentPlayer.toString() + ".jpg"));
+                    String t = imgDir.getAbsolutePath() + "/" + game.fingerprint + "-" + game.currentRound + "-" + person.getName() + ".jpg";
+                    Drawable imgDrwbl = Drawable.createFromPath(t);
                     image.setImageDrawable(imgDrwbl);
                 }
             }
@@ -117,7 +118,6 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
                 Intent play = new Intent(ParticipantTurn.this, JudgeTurn.class);
                 play.putExtra("game", game);
                 play.putExtra("participants", nextParticipants);
-                play.putExtra("ID", ID);
                 startActivity(play);
             } else {
                 Intent play = new Intent(ParticipantTurn.this, TurnNotifier.class);
@@ -130,7 +130,8 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
             Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (captureIntent.resolveActivity(getPackageManager()) != null) {
                 File imageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                File imageFile = new File(imageDir, (game.fingerprint + "-" + currentRound.toString() + "-" + currentPlayer.toString() + ".jpg"));
+                String s = game.fingerprint + "-" + game.currentRound + "-" + person.getName() + ".jpg";
+                File imageFile = new File(imageDir, s);
                 captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
                 startActivityForResult(captureIntent, PHOTO_REQUEST);
             }

@@ -2,6 +2,7 @@ package edu.gvsu.cis.lafeldtb.snapjudgement;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,7 +28,6 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
     private int currentPhoto = 0;
     private Game game;
     private ArrayList<Player> participants;
-    private String photoName = "";
     private Drawable imgDrwbl;
 
     @Override
@@ -46,14 +47,15 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
         if (savedInstanceState != null) {
             currentPhoto = savedInstanceState.getInt("current photo");
             game = (Game) savedInstanceState.getParcelable("game");
+            participants = savedInstanceState.getParcelableArrayList("participants");
         }
         else {
             Intent what = getIntent();
             game = (Game) what.getParcelableExtra("game");
             participants = what.getParcelableArrayListExtra("participants");
         }
-
-        imgDrwbl = Drawable.createFromPath(game.fingerprint + "-" + game.currentRound + "-" + participants.get(0) + ".jpg");
+        File imgDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        imgDrwbl = Drawable.createFromPath(imgDir + "/" + game.fingerprint + "-" + game.currentRound + "-" + participants.get(currentPhoto).getName() + ".jpg");
         image.setImageDrawable(imgDrwbl);
     }
 
@@ -86,6 +88,7 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
 
         outState.putInt("current photo", currentPhoto);
         outState.putParcelable("game", game);
+        outState.putParcelableArrayList("participants", participants);
     }
 
     @Override
@@ -95,7 +98,8 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
                 currentPhoto = 0;
             else
                 currentPhoto++;
-            imgDrwbl = Drawable.createFromPath(game.fingerprint + "-" + game.currentRound + "-" + participants.get(currentPhoto) + ".jpg");
+            File imgDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            imgDrwbl = Drawable.createFromPath(imgDir + "/" + game.fingerprint + "-" + game.currentRound + "-" + participants.get(currentPhoto).getName() + ".jpg");
             image.setImageDrawable(imgDrwbl);
         }
         else if (view == prev) {
@@ -103,7 +107,8 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
                 currentPhoto = participants.size() - 1;
             else
                 currentPhoto--;
-            imgDrwbl = Drawable.createFromPath(game.fingerprint + "-" + game.currentRound + "-" + participants.get(currentPhoto) + ".jpg");
+            File imgDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            imgDrwbl = Drawable.createFromPath(imgDir + "/" + game.fingerprint + "-" + game.currentRound + "-" + participants.get(currentPhoto).getName() + ".jpg");
             image.setImageDrawable(imgDrwbl);
         }
         else if (view == select) {

@@ -47,7 +47,7 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     RecyclerView playerList;
     private RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager myManager;    private Game game;
-    private int  scoreLimit;
+    private int  scoreLimit, count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +123,7 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
                                 //edit text
                                 //creates a new player
                                 players.add(new Player(userInput.getText().toString()));
-
+                                count++;
                                 myAdapter.notifyDataSetChanged();
                                 //lets the button work if there are 3 or more players
                                 if (players.size() >= 3) {

@@ -16,6 +16,8 @@ public class Player implements Parcelable{
     private int timesJudge = 0;         //to rotate who is judge
     public Bitmap image;
 
+    public static int currentID = 0;
+
     public Player(String s) {
         name = s;
         score = 0;
