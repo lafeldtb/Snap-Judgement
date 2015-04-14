@@ -3,11 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!--Colors in the game
-    <color name="primary"></color>
-    <color name="secondary"></color>
-    <color name="tertiary">0xFFFFF</color>
+    <!--Colors in the game -->
+    <color name="primary">#3C23A1</color>
+    <color name="secondary">#86D618</color>
+    <color name="tertiary">#EA5D1A</color>
 
-    -->
+
 
 </resources>
