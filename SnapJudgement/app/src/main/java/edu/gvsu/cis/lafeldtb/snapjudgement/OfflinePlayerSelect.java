@@ -42,13 +42,8 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     final Context context = this;
     RecyclerView playerList;
     private RecyclerView.Adapter myAdapter;
-    private RecyclerView.LayoutManager myManager;
-
-
-    private Game game;
+    private RecyclerView.LayoutManager myManager;    private Game game;
     private int  scoreLimit;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +68,13 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
         Intent what = getIntent();
         scoreLimit = what.getIntExtra("ScoreLimit", 5);
-        game = new Game(players, scoreLimit);
+        game = new Game(players, scoreLimit, "null");
 
 
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 if(game.players.size() >= 3) {
                     Intent toStandings = new Intent(OfflinePlayerSelect.this, Standings.class);
@@ -88,14 +84,13 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
                     Toast.makeText(OfflinePlayerSelect.this, "Need 3+ players to continue", Toast.LENGTH_LONG).show();
                 }
 
+
             }
         });
 
         myManager = new LinearLayoutManager(this);
         playerList.setLayoutManager(myManager);
-
         myAdapter = new MyWordAdapter(players);
-
         playerList.setAdapter(myAdapter);
         newPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,11 +150,6 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
             }
         });
-
-
-
-
-
     }
 
     @Override
@@ -205,14 +195,5 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
         If there are less than three players, then the start game button will not work
          */
-
-
-
-
     }
-
-
-
-
-
 }

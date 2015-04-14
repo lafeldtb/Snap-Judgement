@@ -1,5 +1,6 @@
 package edu.gvsu.cis.lafeldtb.snapjudgement;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -13,6 +14,7 @@ public class Player implements Parcelable{
     private String name = "John Doe";
     private boolean isJudge = false;
     private int timesJudge = 0;         //to rotate who is judge
+    public Bitmap image;
 
     public Player(String s) {
         name = s;

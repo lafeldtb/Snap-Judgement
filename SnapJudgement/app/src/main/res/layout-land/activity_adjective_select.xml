@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffffff"
+    android:background="@android:color/holo_blue_light">
     android:id="@+id/R">
 
     <TextView
@@ -11,7 +11,9 @@
         android:id="@+id/choose"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="40dp" />
+        android:textSize="40dp"
+        android:textColor="#ff000000"
+        android:background="#ff09de00" />
 
     <Button
         android:layout_width="wrap_content"
@@ -19,7 +21,9 @@
         android:id="@+id/adjective1"
         android:layout_below="@+id/choose"
         android:layout_centerHorizontal="true"
-        android:textSize="40sp" />
+        android:background="#ffdedc00"
+        android:layout_marginTop="20dp"
+        android:textSize="25dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -27,7 +31,10 @@
         android:id="@+id/adjective2"
         android:layout_below="@+id/adjective1"
         android:layout_centerHorizontal="true"
-        android:textSize="40sp" />
+        android:background="#ffdedc00"
+        android:layout_marginTop="20dp"
+        android:textSize="25dp" />
+
 
     <Button
         android:layout_width="wrap_content"
@@ -35,6 +42,8 @@
         android:id="@+id/adjective3"
         android:layout_below="@+id/adjective2"
         android:layout_centerHorizontal="true"
-        android:textSize="40sp" />
+        android:background="#ffdedc00"
+        android:layout_marginTop="20dp"
+        android:textSize="25dp" />
 
 </RelativeLayout>

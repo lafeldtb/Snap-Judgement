@@ -2,6 +2,7 @@ package edu.gvsu.cis.lafeldtb.snapjudgement;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
@@ -13,18 +14,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.util.ArrayList;
 
 import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
 public class ParticipantTurn extends ActionBarActivity implements View.OnClickListener {
 
-    Button captureButton, acceptButton;
+    private Button captureButton, acceptButton;
     //Button shareButton;
     static int PHOTO_REQUEST = 1;
     ImageView image;
     Integer currentPlayer = 0, currentRound = 0;
+    private TextView text;
+    private Game game;
+    private Player person;
+    private ArrayList<Player> nextParticipants;
+    private int ID;
+    private TextView currentPlayerText;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -34,11 +44,14 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
                 if (data != null) {
                     Bundle extras = data.getExtras();
                     Bitmap myphoto = (Bitmap) extras.get("data");
+                    person.image = myphoto;
                     image.setImageBitmap(myphoto);
                 } else {
                     /* get the public dir for images */
+
+                    //For some reason, the code cannot find the file even though it should be able to. It just gets set as null.
                     File imgDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                    Drawable imgDrwbl = Drawable.createFromPath(imgDir.getAbsolutePath() + ("/" + currentRound.toString() + currentPlayer.toString() + ".jpg"));
+                    Drawable imgDrwbl = Drawable.createFromPath(imgDir.getAbsolutePath() + (game.fingerprint + "-" + currentRound.toString() + "-" + currentPlayer.toString() + ".jpg"));
                     image.setImageDrawable(imgDrwbl);
 
                 }
@@ -69,36 +82,22 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
         captureButton = (Button) findViewById(R.id.capture_button);
         image = (ImageView) findViewById(R.id.imageView);
         acceptButton = (Button) findViewById(R.id.accept_button);
+        text = (TextView) findViewById(R.id.adj);
 
-        captureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (captureIntent.resolveActivity(getPackageManager()) != null) {
-                    File imageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                    File imageFile = new File(imageDir, (currentRound.toString() + currentPlayer.toString() + ".jpg"));
-                    captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
-                    startActivityForResult(captureIntent, PHOTO_REQUEST);
-                }
-            }
-        });
+        Intent what = getIntent();
+        game = (Game) what.getParcelableExtra("game");
+        person = (Player) what.getParcelableExtra("person");
+        nextParticipants = what.getParcelableArrayListExtra("participants");
+        ID = what.getIntExtra("ID", 0);
+
+        text.setText(game.getAdjective());
 
 
-        /*This button does not work yet. We need to determine how to pass from one player's turn
-        to the next player's turn. My current idea is just to start an intent that goes into the
-        same class, but I don't think it'll work. Another idea is to create a seperate activity
-        that tracks everyones turns where each player can tap their cell and take their picture
-        in any order and then a "Judge" button that the Judge taps once everyone has  taken a picture.
-         Just an idea, but it could work easier/better.
-        */
+        captureButton.setOnClickListener(this);
+        acceptButton.setOnClickListener(this);
+        //currentPlayerText = (TextView) findViewById(R.id.accept_button);
 
-        acceptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent nextPlayer = new Intent(ParticipantTurn.this, ParticipantTurn.class);
-                startActivity(nextPlayer);
-            }
-        });
+       // currentPlayerText.setText(person.getName().toString() + "'s Turn");
     }
 
 
@@ -126,6 +125,28 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-
+        if (v == acceptButton) {
+            if (ID >= nextParticipants.size()) {
+                Intent play = new Intent(ParticipantTurn.this, JudgeTurn.class);
+                play.putExtra("game", game);
+                play.putExtra("participants", nextParticipants);
+                play.putExtra("ID", ID);
+                startActivity(play);
+            } else {
+                Intent play = new Intent(ParticipantTurn.this, TurnNotifier.class);
+                play.putExtra("game", game);
+                play.putExtra("participants", nextParticipants);
+                play.putExtra("ID", ID);
+                startActivity(play);
+            }
+        } else if (v == captureButton) {
+            Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (captureIntent.resolveActivity(getPackageManager()) != null) {
+                File imageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                File imageFile = new File(imageDir, (game.fingerprint + "-" + currentRound.toString() + "-" + currentPlayer.toString() + ".jpg"));
+                captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+                startActivityForResult(captureIntent, PHOTO_REQUEST);
+            }
+        }
     }
 }
