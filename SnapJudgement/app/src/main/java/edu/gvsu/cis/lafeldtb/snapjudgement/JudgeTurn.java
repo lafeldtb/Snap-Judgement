@@ -22,6 +22,8 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
     private int currentPhoto = 0;
     private Game game;
     private ArrayList<Player> participants;
+    private String photoName = "";
+    private Drawable imgDrwbl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,9 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
             game = (Game) what.getParcelableExtra("game");
             participants = what.getParcelableArrayListExtra("participants");
         }
-        image.setImageBitmap(participants.get(0).image);
+
+        imgDrwbl = Drawable.createFromPath(game.fingerprint + "-" + game.currentRound + "-" + participants.get(0) + ".jpg");
+        image.setImageDrawable(imgDrwbl);
     }
 
 
@@ -87,14 +91,16 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
                 currentPhoto = 0;
             else
                 currentPhoto++;
-            image.setImageBitmap(participants.get(currentPhoto).image);
+            imgDrwbl = Drawable.createFromPath(game.fingerprint + "-" + game.currentRound + "-" + participants.get(currentPhoto) + ".jpg");
+            image.setImageDrawable(imgDrwbl);
         }
         else if (view == prev) {
             if (currentPhoto == 0)
                 currentPhoto = participants.size() - 1;
             else
                 currentPhoto--;
-            image.setImageBitmap(participants.get(currentPhoto).image);
+            imgDrwbl = Drawable.createFromPath(game.fingerprint + "-" + game.currentRound + "-" + participants.get(currentPhoto) + ".jpg");
+            image.setImageDrawable(imgDrwbl);
         }
         else if (view == select) {
             text.setText(participants.get(currentPhoto).getName() + " wins a point");
