@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import android.text.Editable;
 
 /**
- * Created by Josh Techentin on 4/1/2015.
+ * @author Benjamin LaFeldt, Joshua Techentin, Andrew Burns
  */
 public class Player implements Parcelable{
 

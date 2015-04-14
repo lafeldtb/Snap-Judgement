@@ -13,6 +13,10 @@ import java.util.ArrayList;
 
 import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
+/**
+ * @author Benjamin LaFeldt, Joshua Techentin, Andrew Burns
+ */
+
 public class TurnNotifier extends ActionBarActivity implements View.OnClickListener {
 
     private Game game;

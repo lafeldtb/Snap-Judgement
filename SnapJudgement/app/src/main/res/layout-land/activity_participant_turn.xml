@@ -4,17 +4,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".ParticipantTurn"
-    android:background="@android:color/holo_blue_light">
+    android:background="@color/primary">
 
     <Button
         android:layout_width="150dp"
         android:layout_height="75dp"
         android:text="Camera"
         android:id="@+id/capture_button"
-        android:background="#ffdedc00"
+        android:background="@color/secondary"
         android:textSize="25dp"
         android:layout_alignTop="@+id/imageView"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/primary" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -22,20 +23,17 @@
         android:layout_height="75dp"
         android:text="Accept"
         android:id="@+id/accept_button"
-        android:background="#ffdedc00"
+        android:background="@color/secondary"
         android:textSize="25dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/primary" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/adj"
         android:layout_alignParentTop="true"
-<<<<<<< HEAD
-=======
-
->>>>>>> 958f684d565edccbcf198d440cc7c5e8081c9c4b
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
         android:textSize="32dp"
@@ -49,8 +47,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/playersTurnText" />
-
-
         android:layout_alignRight="@+id/imageView"
         android:layout_alignEnd="@+id/imageView" />
 
@@ -62,6 +58,7 @@
         android:gravity="center"
         android:textSize="20dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/imageView" />
+        android:layout_alignLeft="@+id/imageView"
+        android:textColor="@color/primary" />
 
 </RelativeLayout>

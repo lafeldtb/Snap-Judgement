@@ -14,6 +14,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * @author Benjamin LaFeldt, Joshua Techentin, Andrew Burns
+ */
+
 public class JudgeTurn extends ActionBarActivity implements View.OnClickListener {
 
     private Button next, prev, select;

@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * @author Benjamin LaFeldt, Joshua Techentin, Andrew Burns
+ */
 
 public class TitleScreen extends ActionBarActivity implements View.OnClickListener {
 

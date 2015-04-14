@@ -25,14 +25,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author Benjamin LaFeldt, Joshua Techentin, Andrew Burns
+ */
+
 public class AdjectiveSelect extends ActionBarActivity implements View.OnClickListener {
 
     private final String URL = "http://api.wordnik.com:80/v4/words.json/randomWord?";
-<<<<<<< HEAD
+
     private final String URL2 = "hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=1000&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=1&minLength=2&maxLength=-1";
-=======
-    private final String URL2 = "hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=1&minLength=2&maxLength=5";
->>>>>>> 958f684d565edccbcf198d440cc7c5e8081c9c4b
+
     private final String URL3 = "&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
     private String adj1 = null, adj2 = null, adj3 = null;
     private Button btn1, btn2, btn3;

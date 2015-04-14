@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Started by Josh Techentin on 3/31/2015.
+ * @author Benjamin LaFeldt, Joshua Techentin, Andrew Burns
  */
 public class MyWordAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
