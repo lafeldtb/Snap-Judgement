@@ -39,7 +39,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
         android:textSize="32dp"
-        android:textColor="#ff000000" />
+        android:textColor="@color/tertiary" />
 
     <ImageView
         android:layout_width="match_parent"

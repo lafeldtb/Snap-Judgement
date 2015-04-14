@@ -41,36 +41,23 @@
         android:text="TEST"
         android:id="@+id/next_judge"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="79dp"
         android:textSize="45dp"
         android:gravity="center_horizontal"
-        android:textColor="@color/tertiary" />
-
-    <Space
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:textColor="@color/tertiary"
         android:layout_below="@+id/next_judge_label"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/judge_label_buffer" />
-
-    <Space
-        android:layout_width="fill_parent"
-        android:layout_height="25dp"
-        android:layout_below="@+id/next_judge"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/play_button_buffer" />
+        android:layout_above="@+id/standings_label" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="PLAY"
         android:id="@+id/play_button"
-        android:layout_below="@+id/play_button_buffer"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/standings_label"
         android:textSize="30dp"
         android:singleLine="false"
         android:background="@color/secondary"
-        android:textColor="@color/primary" />
+        android:textColor="@color/primary"
+        android:layout_alignTop="@+id/next_judge"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

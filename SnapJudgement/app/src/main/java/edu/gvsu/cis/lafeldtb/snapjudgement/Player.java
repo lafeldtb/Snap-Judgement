@@ -11,7 +11,7 @@ import android.text.Editable;
 public class Player implements Parcelable{
 
     private int score = 0;
-    private String name = "John Doe";
+    private String name = "";
     private boolean isJudge = false;
     private int timesJudge = 0;         //to rotate who is judge
     public Bitmap image;

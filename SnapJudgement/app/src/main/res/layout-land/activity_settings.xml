@@ -39,6 +39,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="45dp"
         android:text="5"
-        android:textColor="@color/tertiary" />
+        android:textColor="@color/tertiary"
+        android:layout_above="@+id/acceptChangesButton" />
 
 </RelativeLayout>
