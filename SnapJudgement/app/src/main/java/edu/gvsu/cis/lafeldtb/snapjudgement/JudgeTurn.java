@@ -22,7 +22,7 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
 
     private Button next, prev, select;
     private ImageView image;
-    private TextView text;
+    private TextView text, adWord;
     private int currentPhoto = 0;
     private Game game;
     private ArrayList<Player> participants;
@@ -39,6 +39,8 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
         select = (Button) findViewById(R.id.choose);
         image = (ImageView) findViewById(R.id.currentImage);
         text = (TextView) findViewById(R.id.winnerText);
+        adWord = (TextView) findViewById(R.id.ad_word);
+
 
         next.setOnClickListener(this);
         prev.setOnClickListener(this);
@@ -55,6 +57,8 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
 
         imgDrwbl = Drawable.createFromPath(game.fingerprint + "-" + game.currentRound + "-" + participants.get(0) + ".jpg");
         image.setImageDrawable(imgDrwbl);
+
+        adWord.setText("Current Adjective: " + game.getAdjective());
     }
 
 

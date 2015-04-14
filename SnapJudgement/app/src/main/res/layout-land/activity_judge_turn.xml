@@ -54,8 +54,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/currentImage"
-        android:layout_below="@+id/winnerText"
+        android:layout_below="@+id/ad_word"
         android:layout_above="@id/choose"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TEST"
+        android:id="@+id/ad_word"
+        android:textSize="30dp"
+        android:textColor="@color/tertiary"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
