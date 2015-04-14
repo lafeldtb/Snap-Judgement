@@ -11,11 +11,10 @@
         android:layout_height="75dp"
         android:text="Camera"
         android:id="@+id/capture_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="#ffdedc00"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_alignParentLeft="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -23,17 +22,20 @@
         android:layout_height="75dp"
         android:text="Accept"
         android:id="@+id/accept_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:background="#ffdedc00"
-        android:textSize="25dp" />
+        android:textSize="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/adj"
         android:layout_alignParentTop="true"
+<<<<<<< HEAD
+=======
+
+>>>>>>> 958f684d565edccbcf198d440cc7c5e8081c9c4b
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
         android:textSize="32dp"
@@ -43,10 +45,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_below="@+id/adj"
-        android:layout_above="@+id/capture_button" />
+        android:layout_toRightOf="@+id/capture_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/playersTurnText" />
 
-=======
+
         android:layout_alignRight="@+id/imageView"
         android:layout_alignEnd="@+id/imageView" />
 
@@ -55,12 +59,9 @@
         android:layout_height="wrap_content"
         android:text="Player&apos;s Turn"
         android:id="@+id/playersTurnText"
-        android:layout_alignBottom="@+id/capture_button"
-        android:layout_toRightOf="@+id/capture_button"
-        android:layout_toLeftOf="@+id/accept_button"
-        android:layout_toStartOf="@+id/accept_button"
-        android:layout_alignParentTop="true"
         android:gravity="center"
-        android:textSize="20dp" />
->>>>>>> 242c79c27fcfe051ab2db2cef2d5bd5cf64b6a61:SnapJudgement/app/src/main/res/layout/activity_participant_turn.xml
+        android:textSize="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/imageView" />
+
 </RelativeLayout>

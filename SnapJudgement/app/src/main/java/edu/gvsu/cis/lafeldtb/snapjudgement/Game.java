@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import edu.gvsu.cis.lafeldtb.snapjudgement.Player;
 
@@ -18,13 +20,20 @@ public class Game implements Parcelable {
 
     public ArrayList<Player> players = new ArrayList<Player>();
     public int scoreLimit;
-    public String adjective;
+    public String adjective, fingerprint;
+    public int currentRound = 0;
 
     public Game( ArrayList<Player> players, int scoreLimit, String adjective) {
 
         this.players = players;
         this.scoreLimit = scoreLimit;
         this.adjective = adjective;
+
+        //sets a (hopefully) unique fingerprint for this game based on current time
+        Calendar cal = Calendar.getInstance();
+        cal.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH_mm_ss");
+        fingerprint = sdf.format(cal.getTime());
 
 
     }
@@ -73,6 +82,9 @@ public class Game implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(scoreLimit);
         dest.writeTypedList(players);
+        dest.writeString(adjective);
+        dest.writeString(fingerprint);
+        dest.writeInt(currentRound);
     }
 
     public static final Parcelable.Creator<Game> CREATOR
@@ -90,5 +102,16 @@ public class Game implements Parcelable {
     private Game(Parcel in) {
         scoreLimit = in.readInt();
         in.readTypedList(players, Player.CREATOR);
+        adjective = in.readString();
+        fingerprint = in.readString();
+        currentRound = in.readInt();
+    }
+
+    public int getRound(){
+        return currentRound;
+    }
+
+    public String getAdjective(){
+        return adjective;
     }
 }

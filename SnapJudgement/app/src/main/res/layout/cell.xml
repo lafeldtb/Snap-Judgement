@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/linear"
-    android:background="@android:color/holo_blue_light">
+    android:background="@color/primary">
 
     <TextView
         android:layout_width="match_parent"
@@ -11,8 +11,8 @@
         android:id="@+id/myword"
         android:layout_gravity="center_horizontal"
         android:textSize="45dp"
-        android:textColor="#ff000000"
-        android:background="#ff09de00"
+        android:textColor="@color/tertiary"
+        android:background="@color/secondary"
         android:gravity="center_horizontal" />
 
 </LinearLayout>

@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.games.*;
 
@@ -34,8 +35,10 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     private ArrayList<Player> players;
 
 
-    private final int BCOLOR = 0xffdedc00;
-    private final int ACOLOR = 0xff9c9c9c;
+
+    private final int BCOLOR = 0xff9c9c9c;
+    private final int ACOLOR = 0x86D618;
+    private boolean clickable = true;
     final Context context = this;
     RecyclerView playerList;
     private RecyclerView.Adapter myAdapter;
@@ -54,6 +57,8 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
 
         if(savedInstanceState != null) {
             players = savedInstanceState.getParcelableArrayList("players");
+            game = savedInstanceState.getParcelable("game");
+            clickable = savedInstanceState.getBoolean("clickable");
 
         }
 
@@ -65,12 +70,20 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
         scoreLimit = what.getIntExtra("ScoreLimit", 5);
         game = new Game(players, scoreLimit, "null");
 
+
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent play = new Intent(OfflinePlayerSelect.this, Standings.class);
-                play.putExtra("game", game);
-                startActivity(play);
+
+
+                if(game.players.size() >= 3) {
+                    Intent toStandings = new Intent(OfflinePlayerSelect.this, Standings.class);
+                    toStandings.putExtra("game", game);
+                    startActivity(toStandings);
+                } else {
+                    Toast.makeText(OfflinePlayerSelect.this, "Need 3+ players to continue", Toast.LENGTH_LONG).show();
+                }
+
 
             }
         });
@@ -110,12 +123,13 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
                                 myAdapter.notifyDataSetChanged();
                                 //lets the button work if there are 3 or more players
                                 if (players.size() >= 3) {
+                                    clickable = true;
 
-                                    newGame.setBackgroundColor(BCOLOR);
-                                    newGame.setClickable(true);
+                                    newGame.setClickable(clickable);
                                 } else {
-                                    newGame.setBackgroundColor(ACOLOR);
-                                    newGame.setClickable(false);
+                                    clickable = false;
+
+                                    newGame.setClickable(clickable);
                                 }
 
 
@@ -142,6 +156,8 @@ public class OfflinePlayerSelect extends ActionBarActivity implements View.OnCli
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList("players", players);
+        outState.putParcelable("game", game);
+        outState.putBoolean("clickable", clickable);
     }
 
     @Override

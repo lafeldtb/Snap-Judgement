@@ -57,7 +57,11 @@ public class Standings extends ActionBarActivity implements View.OnClickListener
     }
 
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("game", game);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
