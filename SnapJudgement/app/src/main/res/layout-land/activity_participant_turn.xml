@@ -32,10 +32,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/adj"
         android:layout_alignParentTop="true"
-<<<<<<< HEAD
-=======
-
->>>>>>> 958f684d565edccbcf198d440cc7c5e8081c9c4b
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
         android:textSize="32dp"

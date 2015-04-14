@@ -14,12 +14,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,12 +29,8 @@ import java.util.Set;
 
 public class AdjectiveSelect extends ActionBarActivity implements View.OnClickListener {
 
-    private final String URL = "http://api.wordnik.com:80/v4/words.json/randomWord?";
-<<<<<<< HEAD
-    private final String URL2 = "hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=1000&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=1&minLength=2&maxLength=-1";
-=======
-    private final String URL2 = "hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=1&minLength=2&maxLength=5";
->>>>>>> 958f684d565edccbcf198d440cc7c5e8081c9c4b
+    private final String URL = "http://api.wordnik.com/v4/words.json/randomWord?";
+    private final String URL2 = "hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=10000&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=1&minLength=2&maxLength=8";
     private final String URL3 = "&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
     private String adj1 = null, adj2 = null, adj3 = null;
     private Button btn1, btn2, btn3;
@@ -63,8 +61,15 @@ public class AdjectiveSelect extends ActionBarActivity implements View.OnClickLi
         }
         words = new HashSet<String>();
 
-        GetAdjectives myTask = new GetAdjectives();
-        myTask.execute(URL + URLEncoder.encode(URL2) + URL3);
+        if (adj3 == null) {
+            GetAdjectives myTask = new GetAdjectives();
+            myTask.execute(URL + URL2 + URL3);
+        }
+        else {
+            btn1.setText(adj1);
+            btn2.setText(adj2);
+            btn3.setText(adj3);
+        }
     }
 
 

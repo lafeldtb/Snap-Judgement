@@ -44,7 +44,6 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
                 if (data != null) {
                     Bundle extras = data.getExtras();
                     Bitmap myphoto = (Bitmap) extras.get("data");
-                    person.image = myphoto;
                     image.setImageBitmap(myphoto);
                 } else {
                     /* get the public dir for images */
@@ -56,21 +55,6 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
                 }
             }
         }
-    }
-
-    private Intent createImageShareIntent(String imgName) {
-    /* ACTION_SEND = share */
-        Intent shareImg = new Intent(Intent.ACTION_SEND);
-
-
-    /* determine the file location */
-        File imgDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        File imgFile = new File(imgDir, imgName);
-
-    /* attach the file to the share intent */
-        shareImg.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(imgFile));
-        shareImg.setType("image/jpeg");
-        return shareImg;
     }
 
     @Override

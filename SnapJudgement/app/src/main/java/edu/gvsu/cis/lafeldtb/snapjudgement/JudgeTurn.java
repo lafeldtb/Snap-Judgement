@@ -129,12 +129,6 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
             game.players.get(values[currentPhoto]).setScore(tempInt);
             //sets the next judge
             game.nextJudge();
-            text.setText(game.players.get(values[currentPhoto]).getName() + " wins 1 point");
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             participants.get(currentPhoto).setScore(participants.get(currentPhoto).getScore() + 1);
             if (game.gameEnded()) {
                 Intent play = new Intent(JudgeTurn.this, Victory.class);
