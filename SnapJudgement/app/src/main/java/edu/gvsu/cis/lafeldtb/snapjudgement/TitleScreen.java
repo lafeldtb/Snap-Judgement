@@ -65,7 +65,7 @@ public class TitleScreen extends ActionBarActivity implements View.OnClickListen
     public void onClick(View view) {
         if (view == playButton) {
 
-            Intent play = new Intent(TitleScreen.this, Settings.class);
+            Intent play = new Intent(TitleScreen.this, OfflinePlayerSelect.class);
             startActivity(play);
 
         }

@@ -4,8 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="edu.gvsu.cis.lafeldtb.snapjudgement.Standings"
-    android:background="@android:color/holo_blue_light">
+    tools:context="edu.gvsu.cis.lafeldtb.snapjudgement.Standings">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listOfPlayers"
