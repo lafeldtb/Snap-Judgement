@@ -13,35 +13,33 @@ import edu.gvsu.cis.lafeldtb.snapjudgement.Player;
 /**
  * Started by Josh Techentin on 3/28/2015.
  */
-public class Game implements Parcelable{
+public class Game implements Parcelable {
 
 
     public ArrayList<Player> players = new ArrayList<Player>();
     public int scoreLimit;
+    public String adjective;
 
-    public Game( ArrayList<Player> players, int scoreLimit) {
+    public Game( ArrayList<Player> players, int scoreLimit, String adjective) {
 
         this.players = players;
         this.scoreLimit = scoreLimit;
+        this.adjective = adjective;
 
 
-    }
-
-    public void addPlayer(Player p) {
-        players.add(p);
     }
 
     public void nextJudge() {
         if (players.get(players.size() - 1).getJudge()) {
             players.get(players.size() - 1).setJudge(false);
             players.get(0).setJudge(true);
-
         }
         else {
             for (int i = 0; i < players.size(); i++) {
                 if (players.get(i).getJudge()) {
                     players.get(i).setJudge(false);
                     players.get(i + 1).setJudge(true);
+                    break;
                 }
             }
         }
@@ -57,7 +55,7 @@ public class Game implements Parcelable{
 
     public boolean gameEnded() {
         for(Player p: players) {
-            if(p.getScore() == 10) {
+            if(p.getScore() == scoreLimit) {
                 return true;
             }
         }

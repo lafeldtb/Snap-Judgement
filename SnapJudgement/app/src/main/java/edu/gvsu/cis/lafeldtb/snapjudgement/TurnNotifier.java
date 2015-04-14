@@ -9,44 +9,43 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
-public class Victory extends ActionBarActivity implements View.OnClickListener {
+public class TurnNotifier extends ActionBarActivity implements View.OnClickListener {
 
-    private TextView text;
-    private Button button;
     private Game game;
+    private ArrayList<Player> nextParticipants;
+    private TextView name;
+    private Button button;
+    private Player person;
+    private int ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_victory);
+        setContentView(R.layout.activity_turn_notifier);
 
-        text = (TextView) findViewById(R.id.victory);
-
-        if (savedInstanceState != null)
-            game = (Game) savedInstanceState.getParcelable("game");
-        else {
-            Intent what = getIntent();
-            game = (Game) what.getParcelableExtra("game");
-        }
-
-        Player player = new Player("null");
-        for (Player p: game.players) {
-            if (p.getScore() > player.getScore())
-                player = p;
-        }
-        text = (TextView) findViewById(R.id.victory);
-        text.setText(player.getName() + " wins the match with " + player.getScore() + " points");
-        button = (Button) findViewById(R.id.ok);
+        name = (TextView) findViewById(R.id.person);
+        button = (Button) findViewById(R.id.startTurn);
         button.setOnClickListener(this);
+
+        Intent what = getIntent();
+        game = (Game) what.getParcelableExtra("game");
+        nextParticipants = what.getParcelableArrayListExtra("participants");
+        ID = what.getIntExtra("ID", 0);
+        person = nextParticipants.get(ID);
+        ID++;
+
+        name.setText(person.getName());
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_victory, menu);
+        getMenuInflater().inflate(R.menu.menu_turn_notifier, menu);
         return true;
     }
 
@@ -66,16 +65,13 @@ public class Victory extends ActionBarActivity implements View.OnClickListener {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putParcelable("game", game);
-    }
-
-    @Override
     public void onClick(View view) {
         if (view == button) {
-            Intent play = new Intent(Victory.this, TitleScreen.class);
+            Intent play = new Intent(TurnNotifier.this, ParticipantTurn.class);
+            play.putExtra("game", game);
+            play.putExtra("person", person);
+            play.putExtra("participants", nextParticipants);
+            play.putExtra("ID", ID);
             startActivity(play);
         }
     }

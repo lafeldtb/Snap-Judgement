@@ -19,9 +19,9 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
     private Button next, prev, select;
     private ImageView image;
     private TextView text;
-    private ArrayList<Drawable> photos;
-    private ArrayList<HashMap<String, Integer>> players;
     private int currentPhoto = 0;
+    private Game game;
+    private ArrayList<Player> participants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,16 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
         prev.setOnClickListener(this);
         select.setOnClickListener(this);
 
-        Intent what = getIntent();
+        if (savedInstanceState != null) {
+            currentPhoto = savedInstanceState.getInt("current photo");
+            game = (Game) savedInstanceState.getParcelable("game");
+        }
+        else {
+            Intent what = getIntent();
+            game = (Game) what.getParcelableExtra("game");
+            participants = what.getParcelableArrayListExtra("participants");
+        }
+        image.setImageBitmap(participants.get(0).image);
     }
 
 
@@ -65,63 +74,48 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("current photo", currentPhoto);
+        outState.putParcelable("game", game);
+    }
+
+    @Override
     public void onClick(View view) {
         if (view == next) {
-            if (currentPhoto == photos.size() - 1)
+            if (currentPhoto == participants.size() - 1)
                 currentPhoto = 0;
             else
                 currentPhoto++;
+            image.setImageBitmap(participants.get(currentPhoto).image);
         }
         else if (view == prev) {
             if (currentPhoto == 0)
-                currentPhoto = photos.size() - 1;
+                currentPhoto = participants.size() - 1;
             else
                 currentPhoto--;
+            image.setImageBitmap(participants.get(currentPhoto).image);
         }
         else if (view == select) {
-<<<<<<< HEAD
-
-=======
-            int[] values = new int[game.players.size() - 1];
-            int count = 0;
-            boolean isTrue = false;
-            for (int i = 0; i < game.players.size(); i++) {
-                if (game.players.get(i).getJudge())
-                    isTrue = true;
-                else if (isTrue) {
-                    values[count] = i;
-                    count++;
-                }
-            }
-            for (int i = 0; i < game.players.size(); i++) {
-                if (game.players.get(i).getJudge())
-                    isTrue = false;
-                else if (isTrue) {
-                    values[count] = i;
-                    count++;
-                }
-            }
-            //updates winner's score
-            int tempInt = game.players.get(values[currentPhoto]).getScore() + 1;
-            game.players.get(values[currentPhoto]).setScore(tempInt);
-            //sets the next judge
-            game.nextJudge();
-            text.setText(game.players.get(values[currentPhoto]).getName() + " wins 1 point");
+            text.setText(participants.get(currentPhoto).getName() + " wins a point");
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                e.printStackTrace();
             }
+            participants.get(currentPhoto).setScore(participants.get(currentPhoto).getScore() + 1);
             if (game.gameEnded()) {
                 Intent play = new Intent(JudgeTurn.this, Victory.class);
+                play.putExtra("game", game);
                 startActivity(play);
             }
             else {
+                game.nextJudge();
                 Intent play = new Intent(JudgeTurn.this, Standings.class);
-                play.putExtra("game", (android.os.Parcelable) game);
+                play.putExtra("game", game);
                 startActivity(play);
             }
->>>>>>> f52adad0de4a6c17e44d03b6d1502e743cfd3f55
         }
     }
 }

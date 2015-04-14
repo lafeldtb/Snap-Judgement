@@ -22,14 +22,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AdjectiveSelect extends ActionBarActivity implements View.OnClickListener {
 
-    private final String URL = "http://api.wordnik.com:80/v4/words.json/randomWord?hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=1&minLength=2&maxLength=-1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+    private final String URL = "http://api.wordnik.com:80/v4/words.json/randomWord?";
+    private final String URL2 = "hasDictionaryDef=true&includePartOfSpeech=adjective&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=1&minLength=2&maxLength=-1";
+    private final String URL3 = "&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
     private String adj1 = null, adj2 = null, adj3 = null;
     private Button btn1, btn2, btn3;
-    private ArrayList<Integer> scores;
-    private ArrayList<String> playerNames;
+    private Game game;
+    private Set<String> words;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +47,20 @@ public class AdjectiveSelect extends ActionBarActivity implements View.OnClickLi
         btn2.setOnClickListener(this);
         btn3.setOnClickListener(this);
 
-        Intent what = getIntent();
-        scores = what.getIntegerArrayListExtra("scores");
-        playerNames = what.getStringArrayListExtra("players");
+        if (savedInstanceState != null) {
+            game = (Game) savedInstanceState.getParcelable("game");
+            adj1 = savedInstanceState.getString("adj1");
+            adj2 = savedInstanceState.getString("adj2");
+            adj3 = savedInstanceState.getString("adj3");
+        }
+        else {
+            Intent what = getIntent();
+            game = (Game) what.getParcelableExtra("game");
+        }
+        words = new HashSet<String>();
 
         GetAdjectives myTask = new GetAdjectives();
-        while(adj1 == null || adj1.equals(adj2) || adj1.equals(adj3) || adj2.equals(adj3))
-            myTask.execute();
+        myTask.execute(URL + URLEncoder.encode(URL2) + URL3);
     }
 
 
@@ -76,82 +87,137 @@ public class AdjectiveSelect extends ActionBarActivity implements View.OnClickLi
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable("game", game);
+        outState.putString("adj1", adj1);
+        outState.putString("adj2", adj2);
+        outState.putString("adj3", adj3);
+    }
+
+    @Override
     public void onClick(View view) {
         if (view == btn1) {
-            Intent play = new Intent(AdjectiveSelect.this, ParticipantTurn.class);
-            play.putExtra("adjective", btn1.getText().toString());
-            play.putExtra("players", playerNames);
-            play.putExtra("scores", scores);
+            boolean addPlayers = false;
+            ArrayList<Player> nextParticipants = new ArrayList<Player>();
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    addPlayers = true;
+                else if (addPlayers)
+                    nextParticipants.add(game.players.get(i));
+            }
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    addPlayers = false;
+                else if (addPlayers)
+                    nextParticipants.add(game.players.get(i));
+            }
+            int ID = 0;
+            Intent play = new Intent(AdjectiveSelect.this, TurnNotifier.class);
+            game.adjective = btn1.getText().toString();
+            play.putExtra("game", game);
+            play.putExtra("participants", nextParticipants);
+            play.putExtra("ID", ID);
             startActivity(play);
         }
         else if (view == btn2) {
-            Intent play = new Intent(AdjectiveSelect.this, ParticipantTurn.class);
-            play.putExtra("adjective", btn2.getText().toString());
-            play.putExtra("players", playerNames);
-            play.putExtra("scores", scores);
+            boolean addPlayers = false;
+            ArrayList<Player> nextParticipants = new ArrayList<Player>();
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    addPlayers = true;
+                else if (addPlayers)
+                    nextParticipants.add(game.players.get(i));
+            }
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    addPlayers = false;
+                else if (addPlayers)
+                    nextParticipants.add(game.players.get(i));
+            }
+            int ID = 0;
+            Intent play = new Intent(AdjectiveSelect.this, TurnNotifier.class);
+            game.adjective = btn2.getText().toString();
+            play.putExtra("game", game);
+            play.putExtra("participants", nextParticipants);
+            play.putExtra("ID", ID);
             startActivity(play);
         }
         else if (view == btn3) {
-            Intent play = new Intent(AdjectiveSelect.this, ParticipantTurn.class);
-            play.putExtra("adjective", btn3.getText().toString());
-            play.putExtra("players", playerNames);
-            play.putExtra("scores", scores);
+            boolean addPlayers = false;
+            ArrayList<Player> nextParticipants = new ArrayList<Player>();
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    addPlayers = true;
+                else if (addPlayers)
+                    nextParticipants.add(game.players.get(i));
+            }
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    addPlayers = false;
+                else if (addPlayers)
+                    nextParticipants.add(game.players.get(i));
+            }
+            int ID = 0;
+            Intent play = new Intent(AdjectiveSelect.this, TurnNotifier.class);
+            game.adjective = btn3.getText().toString();
+            play.putExtra("game", game);
+            play.putExtra("participants", nextParticipants);
+            play.putExtra("ID", ID);
             startActivity(play);
         }
     }
 
-    private class GetAdjectives extends AsyncTask<Void, Void, String>
+    private class GetAdjectives extends AsyncTask<String, Void, Void>
     {
         // Assigns random adjectives to each of the options the judge has to choose from
 
         @Override
-        protected String doInBackground(Void... params) {
+        protected Void doInBackground(String... params) {
             HttpClient client = new DefaultHttpClient();
-            HttpGet hget = new HttpGet(URL);
+/* set up the URL for the GET request */
             try {
-                HttpResponse resp = client.execute(hget);
+                do {
+                    HttpGet hget = new HttpGet(params[0]);
+                    HttpResponse resp = client.execute(hget);
 
-                InputStream stream = resp.getEntity().getContent();
-                char[] buffer = new char[1024];
+                    InputStream stream = resp.getEntity().getContent();
+                    char[] buffer = new char[1024];
 
-                InputStreamReader reader = new InputStreamReader(stream);
-                int len;
+                    InputStreamReader reader = new InputStreamReader(stream);
+                    int len;
 
-                StringBuffer sb = new StringBuffer();
-                len = reader.read(buffer, 0, 1024);
-
-                while (len != -1) {
-                    sb.append(buffer, 0, len);
+                    StringBuffer sb = new StringBuffer();
                     len = reader.read(buffer, 0, 1024);
-                }
-                return sb.toString();
-            }
-            catch (IOException e) {
+                    while (len != -1) {
+                        sb.append(buffer, 0, len);
+                        len = reader.read(buffer, 0, 1024);
+                    }
+                    JSONObject obj = null;
+                    String name = null;
+                    obj = new JSONObject(sb.toString());
+                    name = obj.getString("word");
+                    words.add(name);
+                } while (words.size() < 3);
+            } catch (Exception e) {
                 Log.e("OOPS", "There was an error " + e.getMessage());
-                return null;
             }
+            return null;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            JSONObject obj = null;
-            try {
-                obj = new JSONObject(s);
-            } catch (JSONException e) {
-                e.printStackTrace();
+        protected void onPostExecute(Void v) {
+            int count = 0;
+            for (String s: words) {
+                if (count == 0)
+                    btn1.setText(s);
+                else if (count == 1)
+                    btn2.setText(s);
+                else if (count == 2)
+                    btn3.setText(s);
+                count++;
             }
-            String name = null;
-            try {
-                name = obj.getString("word");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            if (adj1 == null)
-                adj1 = name;
-            else if (adj2 == null || adj2.equals(adj1))
-                adj2 = name;
-            else if (adj3 == null || adj3.equals(adj1) || adj3.equals(adj2))
-                adj3 = name;
         }
     }
 }
