@@ -37,7 +37,6 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
         next.setOnClickListener(this);
         prev.setOnClickListener(this);
         select.setOnClickListener(this);
-
         if (savedInstanceState != null) {
             currentPhoto = savedInstanceState.getInt("current photo");
             game = (Game) savedInstanceState.getParcelable("game");
@@ -99,6 +98,32 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
         }
         else if (view == select) {
             text.setText(participants.get(currentPhoto).getName() + " wins a point");
+
+            int[] values = new int[game.players.size() - 1];
+            int count = 0;
+            boolean isTrue = false;
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    isTrue = true;
+                else if (isTrue) {
+                    values[count] = i;
+                    count++;
+                }
+            }
+            for (int i = 0; i < game.players.size(); i++) {
+                if (game.players.get(i).getJudge())
+                    isTrue = false;
+                else if (isTrue) {
+                    values[count] = i;
+                    count++;
+                }
+            }
+            //updates winner's score
+            int tempInt = game.players.get(values[currentPhoto]).getScore() + 1;
+            game.players.get(values[currentPhoto]).setScore(tempInt);
+            //sets the next judge
+            game.nextJudge();
+            text.setText(game.players.get(values[currentPhoto]).getName() + " wins 1 point");
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {

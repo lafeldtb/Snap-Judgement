@@ -56,9 +56,7 @@ public class Settings extends ActionBarActivity implements View.OnClickListener 
         if (view == accept) {
             Intent play = new Intent(Settings.this, TitleScreen.class);
             int scoreLim = Integer.parseInt(scoreLimit.getText().toString());
-
             play.putExtra("scoreLimit", scoreLim);
-
             startActivity(play);
         }
     }

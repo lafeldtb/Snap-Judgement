@@ -24,7 +24,7 @@ import edu.gvsu.cis.lafeldtb.snapjudgement.R;
 
 public class ParticipantTurn extends ActionBarActivity implements View.OnClickListener {
 
-    Button captureButton, acceptButton;
+    private Button captureButton, acceptButton;
     //Button shareButton;
     static int PHOTO_REQUEST = 1;
     ImageView image;
@@ -34,6 +34,7 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
     private Player person;
     private ArrayList<Player> nextParticipants;
     private int ID;
+    private TextView currentPlayerText;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -48,7 +49,7 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
                 } else {
                     /* get the public dir for images */
                     File imgDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                    Drawable imgDrwbl = Drawable.createFromPath(imgDir.getAbsolutePath() + ("/" + currentRound.toString() + currentPlayer.toString() + ".jpg"));
+                    Drawable imgDrwbl = Drawable.createFromPath(imgDir.getAbsolutePath() + ("/" + currentRound.toString() + "-" + currentPlayer.toString() + ".jpg"));
                     image.setImageDrawable(imgDrwbl);
 
                 }
@@ -91,6 +92,42 @@ public class ParticipantTurn extends ActionBarActivity implements View.OnClickLi
 
         captureButton.setOnClickListener(this);
         acceptButton.setOnClickListener(this);
+        currentPlayerText = (TextView) findViewById(R.id.accept_button);
+
+        currentPlayerText.setText(game.players.get(currentPlayer - 1).toString() + "'s Turn");
+
+        captureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (captureIntent.resolveActivity(getPackageManager()) != null) {
+                    File imageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                    File imageFile = new File(imageDir, (currentRound.toString() + currentPlayer.toString() + ".jpg"));
+                    captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFile));
+                    startActivityForResult(captureIntent, PHOTO_REQUEST);
+                }
+            }
+        });
+
+
+        /*This button does not work yet. We need to determine how to pass from one player's turn
+        to the next player's turn. My current idea is just to start an intent that goes into the
+        same class, but I don't think it'll work. Another idea is to create a separate activity
+        that tracks everyones turns where each player can tap their cell and take their picture
+        in any order and then a "Judge" button that the Judge taps once everyone has  taken a picture.
+         Just an idea, but it could work easier/better.
+        */
+
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextPlayer = new Intent(ParticipantTurn.this, ParticipantTurn.class);
+                currentPlayer++;
+                nextPlayer.putExtra("currentPlayer", currentPlayer);
+                nextPlayer.putExtra("game", game);
+                startActivity(nextPlayer);
+            }
+        });
     }
 
 

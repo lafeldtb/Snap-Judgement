@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/adj"
         android:layout_alignParentTop="true"
+<<<<<<< HEAD:SnapJudgement/app/src/main/res/layout-land/activity_participant_turn.xml
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
         android:textSize="32dp"
@@ -46,4 +47,21 @@
         android:layout_below="@+id/adj"
         android:layout_above="@+id/capture_button" />
 
+=======
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player&apos;s Turn"
+        android:id="@+id/playersTurnText"
+        android:layout_alignBottom="@+id/capture_button"
+        android:layout_toRightOf="@+id/capture_button"
+        android:layout_toLeftOf="@+id/accept_button"
+        android:layout_toStartOf="@+id/accept_button"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:textSize="20dp" />
+>>>>>>> 242c79c27fcfe051ab2db2cef2d5bd5cf64b6a61:SnapJudgement/app/src/main/res/layout/activity_participant_turn.xml
 </RelativeLayout>

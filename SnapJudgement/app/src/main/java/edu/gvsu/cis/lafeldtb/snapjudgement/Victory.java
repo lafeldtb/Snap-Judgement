@@ -21,7 +21,6 @@ public class Victory extends ActionBarActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_victory);
-
         text = (TextView) findViewById(R.id.victory);
 
         if (savedInstanceState != null)
