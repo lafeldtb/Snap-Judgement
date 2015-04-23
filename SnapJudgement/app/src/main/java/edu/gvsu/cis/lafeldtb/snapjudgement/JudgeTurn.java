@@ -24,7 +24,7 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
 
     private Button next, prev, select;
     private ImageView image;
-    private TextView text, adWord;
+    private TextView adWord;
     private int currentPhoto = 0;
     private Game game;
     private ArrayList<Player> participants;
@@ -39,7 +39,6 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
         prev = (Button) findViewById(R.id.prev);
         select = (Button) findViewById(R.id.choose);
         image = (ImageView) findViewById(R.id.currentImage);
-        text = (TextView) findViewById(R.id.winnerText);
         adWord = (TextView) findViewById(R.id.ad_word);
 
 
@@ -116,8 +115,6 @@ public class JudgeTurn extends ActionBarActivity implements View.OnClickListener
             image.setImageDrawable(imgDrwbl);
         }
         else if (view == select) {
-            text.setText(participants.get(currentPhoto).getName() + " wins a point");
-
             int[] values = new int[game.players.size() - 1];
             int count = 0;
             boolean isTrue = false;
