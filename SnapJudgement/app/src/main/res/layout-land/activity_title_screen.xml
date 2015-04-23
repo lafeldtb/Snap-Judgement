@@ -14,7 +14,6 @@
         android:id="@+id/title"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
         android:textSize="45dp"
         android:textColor="@color/tertiary"
         android:layout_above="@+id/newButton" />
